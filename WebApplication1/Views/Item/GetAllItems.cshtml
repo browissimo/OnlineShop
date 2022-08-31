@@ -1,0 +1,13 @@
+﻿@model List<OnlineShop.Domain.Entity.Item>
+
+@{
+    ViewData["Title"] = "GetItems";
+}
+
+<h1>GetItems</h1>
+
+@foreach(var item in Model)
+{
+    <p>@item.Name</p>
+}
+
