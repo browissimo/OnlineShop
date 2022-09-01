@@ -17,7 +17,7 @@ namespace OnlineShop.DAL.Repositories
         {
             _context = context;
         }
-        public async Task<bool> Create(Item entity)
+        public async Task<bool> CreateAsync(Item entity)
         {
             await _context.Item.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -32,7 +32,7 @@ namespace OnlineShop.DAL.Repositories
             return true;
         }
 
-        public async Task<Item> Get(int id)
+        public async Task<Item> GetAsync(int id)
         {
             return await _context.Item.FirstOrDefaultAsync(x => x.Id == id);
         }

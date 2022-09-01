@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.DAL.Interfaces;
+using OnlineShop.Service.Interfaces;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
 {
     public class ItemController : Controller
     {
+        private readonly IItemService itemService;
 
-        private readonly IItemRepository _itemRepository;
-
-        public ItemController(IItemRepository itemRepository)
+        public ItemController(IItemService itemService)
         {
-            _itemRepository = itemRepository;
+            this.itemService = itemService;
         }
 
-        public async Task<IActionResult> GetAllItems()
+        public async  Task<IActionResult> GetAllItems()
         {
-            var items = await _itemRepository.GetAllItems();
-            return View(items);
+            var items = await itemService.GetAllItems();
+            return View(items.Data);
         }
+
     }
 }

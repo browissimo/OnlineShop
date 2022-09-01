@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using OnlineShop.DAL;
 using OnlineShop.DAL.Interfaces;
 using OnlineShop.DAL.Repositories;
+using OnlineShop.Service.Implementations;
+using OnlineShop.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,7 @@ namespace OnlineShop
                 options.UseSqlServer(connection));
 
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IItemService, ItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
