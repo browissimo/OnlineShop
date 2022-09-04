@@ -10,8 +10,8 @@ using OnlineShop.DAL;
 namespace OnlineShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220831094851_Initial")]
-    partial class Initial
+    [Migration("20220904113244_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace OnlineShop.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Collectin")
+                    b.Property<int>("Collection")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -51,7 +51,7 @@ namespace OnlineShop.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Item");
                 });
 #pragma warning restore 612, 618
         }

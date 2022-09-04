@@ -17,7 +17,7 @@ namespace OnlineShop.DAL.Repositories
         {
             _context = context;
         }
-        public async Task<bool> CreateAsync(Item entity)
+        public async Task<bool> Create(Item entity)
         {
             await _context.Item.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -32,24 +32,27 @@ namespace OnlineShop.DAL.Repositories
             return true;
         }
 
-        public async Task<Item> GetAsync(int id)
+        public async Task<Item> Get(int id)
         {
             return await _context.Item.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Item>> GetAllItems()
+        public async Task<IEnumerable<Item>> GetItems()
         {
             return await _context.Item.ToListAsync();
         }
 
-        public async Task<Item> GetByNameAsync(string name)
+        public async Task<Item> GetByName(string name)
         {
             return await _context.Item.FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public Item Update(Item entity)
+        public async Task<Item> Update(Item entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

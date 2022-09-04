@@ -37,7 +37,7 @@ namespace OnlineShop.Service.Implementations
                     Type = (Types)Convert.ToInt32(itemViewModel.Type)
                 };
 
-                await _itemRepository.CreateAsync(item);
+                await _itemRepository.Create(item);
 
             }
             catch (Exception ex)
@@ -51,12 +51,12 @@ namespace OnlineShop.Service.Implementations
             return baseResponse;
         }
 
-        public async Task<IBaseResponse<Item>> GetItemAsync(int id)
+        public async Task<IBaseResponse<Item>> GetItem(int id)
         {
             var baseResponse = new BaseResponse<Item>();
             try
             {
-                var item = await _itemRepository.GetAsync(id);
+                var item = await _itemRepository.Get(id);
                 if (item == null)
                 {
                     baseResponse.Description = "Item not found";
@@ -64,6 +64,7 @@ namespace OnlineShop.Service.Implementations
                     return baseResponse;
                 }
                 baseResponse.Data = item;
+                baseResponse.StatusCode = StatusCode.Ok;
                 return baseResponse;
             }
             catch (Exception ex)
@@ -76,12 +77,12 @@ namespace OnlineShop.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Item>> GetItemByNameAsync(string name)
+        public async Task<IBaseResponse<Item>> GetItemByName(string name)
         {
             var baseResponse = new BaseResponse<Item>();
             try
             {
-                var item = await _itemRepository.GetByNameAsync(name);
+                var item = await _itemRepository.GetByName(name);
                 if (item == null)
                 {
                     baseResponse.Description = "Item not found";
@@ -101,12 +102,12 @@ namespace OnlineShop.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Item>>> GetAllItemsAsync()
+        public async Task<IBaseResponse<IEnumerable<Item>>> GetItems()
         {
             var baseResponse = new BaseResponse<IEnumerable<Item>>();
             try
             {
-                var items = await _itemRepository.GetAllItems();
+                var items = await _itemRepository.GetItems();
 
                 if (items.Count() == 0)
                 {
@@ -134,7 +135,7 @@ namespace OnlineShop.Service.Implementations
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                var item = await _itemRepository.GetAsync(id);
+                var item = await _itemRepository.Get(id);
                 if (item == null)
                 {
                     baseResponse.Description = "Item not found";
@@ -153,6 +154,44 @@ namespace OnlineShop.Service.Implementations
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+        }
+
+        public async Task<IBaseResponse<Item>> Edit(int id, ItemViewModel model)
+        {
+            var baseresponse = new BaseResponse<Item>();
+            try
+            {
+                var item = await _itemRepository.Get(id);
+                if (item == null)
+                {
+                    baseresponse.StatusCode = StatusCode.ItemNotFound;
+                    baseresponse.Description = "Item not found";
+                    return baseresponse;
+                }
+
+                item.Name = model.Name;
+                item.Description = model.Description;
+                item.Collection = (Collections)Convert.ToInt32( model.Collection);
+                item.Material = model.Material;
+                item.Price = model.Price;
+                item.ReliseDate = model.ReliseDate;
+                item.Type = (Types)Convert.ToInt32(model.Type);
+
+                await _itemRepository.Update(item);
+
+                return baseresponse;
+
+            }
+            catch (Exception ex )
+            {
+
+                return new BaseResponse<Item>()
+                {
+                    Description = $"[Edit] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+
         }
     }
 }

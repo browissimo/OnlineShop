@@ -9,6 +9,6 @@ namespace OnlineShop.DAL.Interfaces
 {
     public interface IItemRepository : IBaseRepositiry<Item>
     {
-        Task<Item> GetByNameAsync(string name);
+        Task<Item> GetByName(string name);
     }
 }

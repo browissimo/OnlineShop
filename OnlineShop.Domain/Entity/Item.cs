@@ -14,6 +14,7 @@ namespace OnlineShop.Domain.Entity
         public string Description { get; set; }
         public string Material { get; set; }
         public double Price { get; set; }
+        //TODO: release
         public DateTime ReliseDate { get; set; }
         public Collections Collection { get; set; }
         public Types Type { get; set; }
