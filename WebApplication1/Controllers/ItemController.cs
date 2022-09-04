@@ -7,17 +7,17 @@ namespace OnlineShop.Controllers
 {
     public class ItemController : Controller
     {
-        private readonly IItemService itemService;
+        private readonly IItemService _itemService;
 
         public ItemController(IItemService itemService)
         {
-            this.itemService = itemService;
+            _itemService = itemService;
         }
 
-        public async  Task<IActionResult> GetAllItems()
+        public async Task<IActionResult> GetAllItemsAsync()
         {
-            var items = await itemService.GetAllItems();
-            return View(items.Data);
+            var response = await _itemService.GetAllItemsAsync();
+            return View(response.Data);
         }
 
     }

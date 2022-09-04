@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.DAL", "OnlineSho
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{DAB85A33-FCF0-497F-9CB2-4CE64EE7E3DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Service", "OnlineShop.Service\OnlineShop.Service.csproj", "{EEAEF165-0835-4A15-B074-F354F5A30E5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Service", "OnlineShop.Service\OnlineShop.Service.csproj", "{EEAEF165-0835-4A15-B074-F354F5A30E5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

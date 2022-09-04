@@ -42,7 +42,7 @@ namespace OnlineShop.DAL.Repositories
             return await _context.Item.ToListAsync();
         }
 
-        public async Task<Item> GetByName(string name)
+        public async Task<Item> GetByNameAsync(string name)
         {
             return await _context.Item.FirstOrDefaultAsync(x => x.Name == name);
         }

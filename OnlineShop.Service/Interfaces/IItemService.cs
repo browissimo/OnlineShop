@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace OnlineShop.Service.Interfaces
 {
     public interface IItemService
-    { 
-        Task<IBaseResponse<IEnumerable<Item>>> GetAllItems();
+    {
+        Task<IBaseResponse<IEnumerable<Item>>> GetAllItemsAsync();
     }
 }

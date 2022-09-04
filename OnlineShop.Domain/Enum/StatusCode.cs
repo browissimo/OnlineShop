@@ -8,6 +8,7 @@ namespace OnlineShop.Domain.Enum
 {
     public enum StatusCode
     {
+        ItemNotFound = 0,
         Ok = 200,
         InternalServerError = 500
     }
