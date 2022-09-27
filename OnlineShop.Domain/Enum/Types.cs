@@ -8,13 +8,13 @@ namespace OnlineShop.Domain.Enum
 {
     public enum Types
     {
-        Jacet,
-        Coat,
-        Denim,
-        Dress,
-        Short,
-        Shirt,
-        Tshirt,
-        Top
+        Jacet = 1,
+        Coat = 2,
+        Denim = 3,
+        Dress = 4,
+        Short = 5,
+        Shirt = 6 ,
+        Tshirt = 7,
+        Top = 8
     }
 }

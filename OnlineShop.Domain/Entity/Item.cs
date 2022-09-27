@@ -15,8 +15,8 @@ namespace OnlineShop.Domain.Entity
         public string Material { get; set; }
         public double Price { get; set; }
         //TODO: release
-        public DateTime ReliseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
         public Collections Collection { get; set; }
-        public Types Type { get; set; }
+        public byte[] Avatar { get; set; }
     }
 }

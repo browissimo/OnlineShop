@@ -9,148 +9,177 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineShop.Domain.ViewModels.Item;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnlineShop.Service.Implementations
 {
     public class ItemService : IItemService
     {
-        private readonly IItemRepository _itemRepository;
+        private readonly IBaseRepository<Item> _itemRepository;
 
-        public ItemService(IItemRepository itemRepository)
+        public ItemService(IBaseRepository<Item> itemRepository)
         {
             _itemRepository = itemRepository;
         }
 
-        public async Task<IBaseResponse<ItemViewModel>> CreateItem(ItemViewModel itemViewModel)
+        public BaseResponse<Dictionary<int, string>> GetTypes()
         {
-            var baseResponse = new BaseResponse<ItemViewModel>();
+            try
+            {
+                var types = ((Types[])Enum.GetValues(typeof(Types)))
+                    .ToDictionary(k => (int)k, t => t.ToString());
+
+                return new BaseResponse<Dictionary<int, string>>()
+                {
+                    Data = types,
+                    StatusCode = StatusCode.Ok
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Dictionary<int, string>>()
+                {
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<ItemViewModel>> GetItem(int id)
+        {
+            try
+            {
+                var item = await _itemRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (item == null)
+                {
+                    return new BaseResponse<ItemViewModel>()
+                    {
+                        Description = "Item not found",
+                        StatusCode = StatusCode.ItemNotFound
+                    };
+                }
+
+                var data = new ItemViewModel()
+                {
+                    ReleaseDate = item.ReleaseDate.ToLongDateString(),
+                    Description = item.Description,
+                    Name = item.Name,
+                    Price = item.Price,
+                    Material = item.Material,
+                    Collection = item.Collection.ToString(),
+                    Image = item.Avatar
+                };
+
+                return new BaseResponse<ItemViewModel>()
+                {
+                    StatusCode = StatusCode.Ok,
+                    Data = data
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ItemViewModel>()
+                {
+                    Description = $"[GetItem] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<Dictionary<int, string>>> GetItem(string term)
+        {
+            var baseResponse = new BaseResponse<Dictionary<int, string>>();
+            try
+            {
+                var items = await _itemRepository.GetAll()
+                    .Select(item => new ItemViewModel()
+                    {
+                        Id = item.Id,
+                        ReleaseDate = item.ReleaseDate.ToLongDateString(),
+                        Description = item.Description,
+                        Name = item.Name,
+                        Price = item.Price,
+                        Material = item.Material,
+                        Collection = item.Collection.ToString(),
+                        Image = item.Avatar
+                    })
+                    .Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
+                    .ToDictionaryAsync(x => x.Id, t => t.Name);
+
+                baseResponse.Data = items;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Dictionary<int, string>>()
+                {
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Item>> Create(ItemViewModel model, byte[] imageData)
+        {
             try
             {
                 var item = new Item()
                 {
-                    Name = itemViewModel.Name,
-                    Description = itemViewModel.Description,
-                    Price = itemViewModel.Price,
-                    Collection = (Collections)Convert.ToInt32(itemViewModel.Collection),
-                    Material = itemViewModel.Material,
-                    ReliseDate = itemViewModel.ReliseDate,
-                    Type = (Types)Convert.ToInt32(itemViewModel.Type)
+                    Id = model.Id,
+                    ReleaseDate = DateTime.Now,
+                    Description = model.Description,
+                    Name = model.Name,
+                    Price = model.Price,
+                    Material = model.Material,
+                    Collection = (Collections)Convert.ToInt32(model.Collection),
+                    Avatar = imageData
                 };
-
                 await _itemRepository.Create(item);
 
+                return new BaseResponse<Item>()
+                {
+                    StatusCode = StatusCode.Ok,
+                    Data = item
+                };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<ItemViewModel>
+                return new BaseResponse<Item>()
                 {
-                    Description = $"[CreateItem] : {ex.Message}",
+                    Description = $"[Create] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-            return baseResponse;
         }
 
-        public async Task<IBaseResponse<Item>> GetItem(int id)
+        public async Task<IBaseResponse<bool>> Delete(int id)
         {
-            var baseResponse = new BaseResponse<Item>();
             try
             {
-                var item = await _itemRepository.Get(id);
+                var item = await _itemRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if (item == null)
                 {
-                    baseResponse.Description = "Item not found";
-                    baseResponse.StatusCode = StatusCode.ItemNotFound;
-                    return baseResponse;
+                    return new BaseResponse<bool>()
+                    {
+                        Description = "Item not found",
+                        StatusCode = StatusCode.UserNotFound,
+                        Data = false
+                    };
                 }
-                baseResponse.Data = item;
-                baseResponse.StatusCode = StatusCode.Ok;
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<Item>
+
+                /*await _carRepository.Delete(car);*/
+
+                return new BaseResponse<bool>()
                 {
-                    Description = $"[GetItemAsync] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Data = true,
+                    StatusCode = StatusCode.Ok
                 };
             }
-        }
-
-        public async Task<IBaseResponse<Item>> GetItemByName(string name)
-        {
-            var baseResponse = new BaseResponse<Item>();
-            try
-            {
-                var item = await _itemRepository.GetByName(name);
-                if (item == null)
-                {
-                    baseResponse.Description = "Item not found";
-                    baseResponse.StatusCode = StatusCode.ItemNotFound;
-                    return baseResponse;
-                }
-                baseResponse.Data = item;
-                return baseResponse;
-            }
             catch (Exception ex)
             {
-                return new BaseResponse<Item>
+                return new BaseResponse<bool>()
                 {
-                    Description = $"[GetItemByNameAsync] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<IBaseResponse<IEnumerable<Item>>> GetItems()
-        {
-            var baseResponse = new BaseResponse<IEnumerable<Item>>();
-            try
-            {
-                var items = await _itemRepository.GetItems();
-
-                if (items.Count() == 0)
-                {
-                    baseResponse.Description = "Zero items found";
-                    baseResponse.StatusCode = StatusCode.Ok;
-                    return baseResponse;
-                }
-                baseResponse.Data = items;
-                baseResponse.StatusCode = StatusCode.Ok;
-
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<Item>>
-                {
-                    Description = $"[GetAllItemsAsync] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<IBaseResponse<bool>> DeleteItem(int id)
-        {
-            var baseResponse = new BaseResponse<bool>();
-            try
-            {
-                var item = await _itemRepository.Get(id);
-                if (item == null)
-                {
-                    baseResponse.Description = "Item not found";
-                    baseResponse.StatusCode = StatusCode.ItemNotFound;
-                    return baseResponse;
-                }
-
-                await _itemRepository.Delete(item);
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<bool>
-                {
-                    Description = $"[DeleteItem] : {ex.Message}",
+                    Description = $"[Delete] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -158,40 +187,73 @@ namespace OnlineShop.Service.Implementations
 
         public async Task<IBaseResponse<Item>> Edit(int id, ItemViewModel model)
         {
-            var baseresponse = new BaseResponse<Item>();
             try
             {
-                var item = await _itemRepository.Get(id);
+                var item = await _itemRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if (item == null)
                 {
-                    baseresponse.StatusCode = StatusCode.ItemNotFound;
-                    baseresponse.Description = "Item not found";
-                    return baseresponse;
+                    return new BaseResponse<Item>()
+                    {
+                        Description = "Item not found",
+                        StatusCode = StatusCode.ItemNotFound
+                    };
                 }
 
-                item.Name = model.Name;
                 item.Description = model.Description;
-                item.Collection = (Collections)Convert.ToInt32( model.Collection);
-                item.Material = model.Material;
+                item.Collection = (Collections)Convert.ToInt32(model.Collection);
                 item.Price = model.Price;
-                item.ReliseDate = model.ReliseDate;
-                item.Type = (Types)Convert.ToInt32(model.Type);
+                item.Material = model.Material;
+                item.ReleaseDate = DateTime.ParseExact(model.ReleaseDate, "yyyyMMdd HH:mm", null);
+                item.Name = model.Name;
 
                 await _itemRepository.Update(item);
 
-                return baseresponse;
 
+                return new BaseResponse<Item>()
+                {
+                    Data = item,
+                    StatusCode = StatusCode.Ok,
+                };
+                // TypeCar
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
-
                 return new BaseResponse<Item>()
                 {
                     Description = $"[Edit] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+        }
 
+        public IBaseResponse<List<Item>> GetItems()
+        {
+            try
+            {
+                var items = _itemRepository.GetAll().ToList();
+                if (!items.Any())
+                {
+                    return new BaseResponse<List<Item>>()
+                    {
+                        Description = "Найдено 0 элементов",
+                        StatusCode = StatusCode.Ok
+                    };
+                }
+
+                return new BaseResponse<List<Item>>()
+                {
+                    Data = items,
+                    StatusCode = StatusCode.Ok
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<Item>>()
+                {
+                    Description = $"[GetItems] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.DAL.Interfaces;
 using OnlineShop.Domain.ViewModels.Item;
 using OnlineShop.Service.Interfaces;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
@@ -16,30 +17,40 @@ namespace OnlineShop.Controllers
             _itemService = itemService;
         }
 
-        public async Task<IActionResult> GetItems()
+
+        [HttpGet]
+        public IActionResult GetItems()
         {
-            var response = await _itemService.GetItems();
+            var response = _itemService.GetItems();
             if (response.StatusCode == Domain.Enum.StatusCode.Ok)
             {
                 return View(response.Data);
             }
-            return RedirectToAction("Error");
+            return View("Error", $"{response.Description}");
         }
 
-        public async Task<IActionResult> GetItem(int id)
+        [HttpGet]
+        public async Task<IActionResult> GetItem(int id, bool isJson)
         {
             var response = await _itemService.GetItem(id);
-            if (response.StatusCode == Domain.Enum.StatusCode.Ok)
+            if (isJson)
             {
-                return View(response.Data);
+                return Json(response.Data);
             }
-            return RedirectToAction("Error");
+            return PartialView("GetItem", response.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetItem(string term, int page = 1, int pageSize = 5)
+        {
+            var response = await _itemService.GetItem(term);
+            return Json(response.Data);
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteItemAsync(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var response = await _itemService.DeleteItem(id);
+            var response = await _itemService.Delete(id);
             {
                 if (response.StatusCode == Domain.Enum.StatusCode.Ok)
                 {
@@ -49,40 +60,53 @@ namespace OnlineShop.Controllers
             }
         }
 
+        public IActionResult Compare() => PartialView();
+
         [HttpGet]
         public async Task<IActionResult> Save(int id)
         {
             if (id == 0)
-            {
-                return View();
-            }
+                return PartialView();
 
             var response = await _itemService.GetItem(id);
             if (response.StatusCode == Domain.Enum.StatusCode.Ok)
             {
-                return View(response.Data);
+                return PartialView(response.Data);
             }
-
-            return RedirectToAction("Error");
+            ModelState.AddModelError("", response.Description);
+            return PartialView();
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save(ItemViewModel model)
         {
+            ModelState.Remove("DateCreate");
             if (ModelState.IsValid)
             {
                 if (model.Id == 0)
                 {
-                   await _itemService.CreateItem(model);
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
+                    }
+                    await _itemService.Create(model, imageData);
                 }
                 else
                 {
                     await _itemService.Edit(model.Id, model);
                 }
+                return RedirectToAction("GetItems");
             }
+            return View();
+        }
 
-            return RedirectToAction("GetItems");
+        [HttpPost]
+        public JsonResult GetTypes()
+        {
+            var types = _itemService.GetTypes();
+            return Json(types.Data);
         }
     }
 }

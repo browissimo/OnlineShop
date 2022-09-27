@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Domain.Enum
 {
-    public enum Collections
+    public enum Role
     {
-        SummerCollection = 3,
-        AutumnCollection = 4,
-        WinterCollection = 1,
-        SpringCollection = 2
+        User = 0,
+        Moderator = 1,
+        Admin = 2
     }
 }

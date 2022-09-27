@@ -8,11 +8,17 @@ namespace OnlineShop.Service.Interfaces
 {
     public interface IItemService
     {
-        Task<IBaseResponse<ItemViewModel>> CreateItem(ItemViewModel itemViewModel);
-        Task<IBaseResponse<Item>> GetItem(int id);
-        Task<IBaseResponse<Item>> GetItemByName(string name);
-        Task<IBaseResponse<IEnumerable<Item>>> GetItems();
-        Task<IBaseResponse<bool>> DeleteItem(int id);
+        BaseResponse<Dictionary<int, string>> GetTypes();
+        IBaseResponse<List<Item>> GetItems();
+
+        Task<IBaseResponse<ItemViewModel>> GetItem(int id);
+
+        Task<BaseResponse<Dictionary<int, string>>> GetItem(string term);
+
+        Task<IBaseResponse<Item>> Create(ItemViewModel car, byte[] imageData);
+
+        Task<IBaseResponse<bool>> Delete(int id);
+
         Task<IBaseResponse<Item>> Edit(int id, ItemViewModel model);
 
     }

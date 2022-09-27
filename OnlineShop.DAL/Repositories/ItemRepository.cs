@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.DAL.Interfaces;
 using OnlineShop.Domain.Entity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OnlineShop.DAL.Repositories
 {
-    public class ItemRepository : IItemRepository
+    public class ItemRepository : IBaseRepository<Item>
     {
         private readonly ApplicationDbContext _context;
 
@@ -17,34 +15,21 @@ namespace OnlineShop.DAL.Repositories
         {
             _context = context;
         }
-        public async Task<bool> Create(Item entity)
+        public async Task Create(Item entity)
         {
-            await _context.Item.AddAsync(entity);
+            await _context.Items.AddAsync(entity);
             await _context.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<bool> Delete(Item entity)
+        public async Task Delete(Item entity)
         {
-            _context.Item.Remove(entity);
+            _context.Items.Remove(entity);
             await _context.SaveChangesAsync();
-
-            return true;
         }
 
-        public async Task<Item> Get(int id)
+        public IQueryable<Item> GetAll()
         {
-            return await _context.Item.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<IEnumerable<Item>> GetItems()
-        {
-            return await _context.Item.ToListAsync();
-        }
-
-        public async Task<Item> GetByName(string name)
-        {
-            return await _context.Item.FirstOrDefaultAsync(x => x.Name == name);
+            return _context.Items;
         }
 
         public async Task<Item> Update(Item entity)
