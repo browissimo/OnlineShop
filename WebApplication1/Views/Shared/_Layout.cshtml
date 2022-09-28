@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    @*<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VSHHJ</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -10,12 +10,61 @@
     <link rel="stylesheet" href="~/css/menu.css"/>
     <link rel="stylesheet" href="~/css/paragraph.css"/>
     <link rel="stylesheet" href="~/css/card.css"/>
-    <link rel="stylesheet" href="~/css/label.css"/>
+    <link rel="stylesheet" href="~/css/label.css"/>*@
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>VSJKK</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link rel="stylesheet" href="~/css/layout.min.css">
 </head>
 <body class="backgroundImage">
     <header>
+		<nav>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="hamburger">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+					<div class="col-md-2 offset-md-1">
+						<div class="logo">
+							<a href="#" class="logo_link">
+								<img src="img/logo/VSJJK_logo.svg" alt="logo" class="logo_img">
+							</a>
+						</div>
+					</div>
+					<div class="col-md-4 offset-md-1">
+						<div class="items">
+							<ul class="items_list">
+								<li class="items_list_item">
+									<img src="icons/magnifying_glass.svg" alt="search" class="items_list_item_img">
+									<a href="#" class="link"></a>
+								</li>
+								<li class="items_list_item">
+									<img src="icons/heart.svg" alt="favourite" class="items_list_item_img">
+									<a href="#" class="link"></a>
+								</li>
+								<li class="items_list_item">
+									<img src="icons/basket.svg" alt="basket" class="items_list_item_img">
+									<a href="#" class="link"></a>
+								</li>
+							</ul>
+						</div>
+					</div>                       
+				</div>
+			</div>
+		</nav>
+	</header>
+    @*<header>
         <nav class="navbar navbar-expand-lg" style="background-color: white;">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:black; font-family:Impact; font-size:30px; background-color:white; border-radius:10px;">VSJJK</span>@*<img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;">*@</a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:black; font-family:Impact; font-size:30px; background-color:white; border-radius:10px;">VSJJK</span><img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;"></a>
             <button class="navbar-toggler badge-light" style="border-radius:10px;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
@@ -112,7 +161,7 @@
                 }
             </div>
         </nav>
-    </header>
+    </header>*@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -124,9 +173,57 @@
             &copy; 2022 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <div class="container">
+		<footer>
+			<div class="row gx-0">
+				<div class="col-md-4 footer_information">
+					<div class="footer_information_header">
+						<div class="footer_information_header_text">INFORMATION</div>
+					</div>
+					<ul class="footer_information_links">
+						<li><a href="">CONTACT US</a></li>
+						<li><a href="">DELIVERY</a></li>
+						<li><a href="">RETURNS</a></li>
+						<li><a href="">SIZE GUIDE</a></li>
+						<li><a href="">SUSTAINABILITY</a></li>
+						<li><a href="">ACCESSIBILITY ADJUSTMENT</a></li>
+						<li><a href="">TAX STRATEGY</a></li>
+											
+					</ul>
+				</div>
+				<div class="col-md-4 footer_company">
+					<div class="footer_company_header">
+						<div class="footer_company_header_text">THE COMPANY</div>
+					</div>
+					<div class="footer_company_links">
+						<li><a href="">CAREERS</a></li>
+						<li><a href="">STORES</a></li>
+						<li><a href="">TERMS&CONDITIONS</a></li>
+						<li><a href="">PRIVACY POLICY</a></li>
+					</div>
+				</div>
+				<div class="col-md-4 footer_follow">
+					<div class="footer_follow_header">
+						<div class="footer_follow_header_text">CONTACT US</div>
+					</div>
+					<div class="footer_follow_links">
+						<li><a href="">INSTAGRAM</a></li>
+						<li><a href="">PINTEREST</a></li>
+						<li><a href="">FACEBOOK</a></li>
+						<li><a href="">TIKTOK</a></li>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 copyriting">
+				<div class="copyriting_text">Copyright © 2022, VSJJK</div>
+			</div>
+		</footer>
+	</div>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+    <script src="js/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     @await RenderSectionAsync("pageScripts", required: false)
 </body>
 </html>
