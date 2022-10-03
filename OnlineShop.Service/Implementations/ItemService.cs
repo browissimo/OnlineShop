@@ -67,7 +67,8 @@ namespace OnlineShop.Service.Implementations
                     Price = item.Price,
                     Material = item.Material,
                     Collection = item.Collection.ToString(),
-                    Image = item.Avatar
+                    Image = item.Avatar,
+                    Colors = item.Colors.ToList()
                 };
 
                 return new BaseResponse<ItemViewModel>()

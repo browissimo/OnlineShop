@@ -66,7 +66,9 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> Save(int id)
         {
             if (id == 0)
+            {
                 return PartialView();
+            }
 
             var response = await _itemService.GetItem(id);
             if (response.StatusCode == Domain.Enum.StatusCode.Ok)

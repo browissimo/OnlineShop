@@ -14,9 +14,10 @@ namespace OnlineShop.Domain.Entity
         public string Description { get; set; }
         public string Material { get; set; }
         public double Price { get; set; }
-        //TODO: release
         public DateTime ReleaseDate { get; set; }
+        public List<Color> Colors { get; set; } = new();
         public Collections Collection { get; set; }
+        public string VendorCode { get; set; }
         public byte[] Avatar { get; set; }
     }
 }

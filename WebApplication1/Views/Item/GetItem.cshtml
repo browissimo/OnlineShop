@@ -1,10 +1,107 @@
-﻿@model OnlineShop.Domain.Entity.Item
+﻿@*@model OnlineShop.Domain.Entity.Item*@
+@model OnlineShop.Domain.ViewModels.Item.ItemViewModel
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<div style="padding: 10px;"></div>
+<head>
+    <link rel="stylesheet" href="~/css/item.min.css">
+</head>
+
+
+<section class="item">
+		<div class="container">
+			<div class="row gx-0">
+				<ul class="main_menu">
+					<li class="main_menu_item"><a href="#" class="main_menu_link">JACKETS</a></li>
+					<li class="main_menu_item"><a href="#" class="main_menu_link">COATS</a></li>
+					<li class="main_menu_item"><a href="#" class="main_menu_link">DENIM</a></li>
+					<li class="main_menu_item"><a href="#" class="main_menu_link">DRESSES</a></li>
+					<li class="main_menu_item"><a href="#" class="main_menu_link">SHORTS</a></li>
+					<li class="main_menu_item"><a href="#" class="main_menu_link">SHIRTS</a></li>
+					<li class="main_menu_item"><a href="#" class="main_menu_link">T-SHIRTS</a></li>
+					<li class="main_menu_item"><a href="#" class="main_menu_link">TOPS</a></li>
+				</ul>
+				<div class="col-md-3 item_desc">
+					<div class="item_desc_head">
+						<div class="item_desc_head_name">@Model.Name</div>
+						<div class="item_desc_head_vendor_code">vendor_code @Model.VendorCode</div>
+					</div>
+					<div class="item_desc_size">
+						<div class="item_desc_size_desc">product size on the model:</div>
+						<div class="item_desc_size_value">42</div>
+					</div>
+					<div class="item_desc_parameters">
+						<div class="item_desc_parameters_desc">model parameters:</div>
+						<div class="item_desc_parameters_value">86-60-92</div>
+					</div>
+					<div class="item_desc_composition">
+						<div class="item_desc_composition_head">
+							<button class="item_desc_composition_head_btn collapsible">composition and care</button>
+							<div class="item_desc_composition_head_body content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis eum saepe dolor reprehenderit aperiam incidunt, dolores debitis maxime voluptatibus, itaque expedita porro, qui id distinctio? Ipsa numquam dicta eveniet voluptatum.</div>			
+						</div>
+					</div>
+					<div class="item_desc_availability">
+						<div class="item_desc_availability_head">
+							<button class="item_desc_availability_head_btn collapsible">avaliability in stores</button>
+							<div class="item_desc_availability_head_body content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis ab quas maiores ipsam minima accusantium enim mollitia quibusdam quia atque, distinctio doloremque in dolor dicta error quo assumenda accusamus repellat.</div>
+						</div>
+					</div> 
+					<div class="item_desc_shipping">
+						<div class="item_desc_shipping_head">
+							<button class="item_desc_shipping_head_btn  collapsible">shipping and payment</button>
+							<div class="item_desc_shipping_head_body content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, doloribus! Molestias, sint dicta, ea nam nemo dolores possimus a quia reiciendis tempora doloribus magnam maiores beatae voluptatem accusamus illum optio.</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5 item_pic">
+					<div class="item_pic_one"></div>
+					<div class="item_pic_two"></div>
+					<div class="item_pic_three"></div>
+					<div class="item_pic_four"></div>
+				</div>
+				<div class="col-md-3 item_characteristics">
+					<div class="item_characteristics_colors">
+						<div class="item_characteristics_colors_desc">colors</div>
+						
+						<ul class="item_characteristics_colors_options">
+							@foreach (var color in @Model.Colors)
+							{
+							<li class="item_characteristics_colors_options_var">
+								<button class="item_characteristics_colors_options_var_btn">@color</button>
+							</li>
+							}
+						</ul>
+						
+						@*<ul class="item_characteristics_colors_options">
+							<li class="item_characteristics_colors_options_var">
+								<button class="item_characteristics_colors_options_var_btn"></button>
+							</li>
+							<li class="item_characteristics_colors_options_var">
+								<button class="item_characteristics_colors_options_var_btn"></button>
+							</li>
+						</ul>*@
+					</div>
+					<div class="item_characteristics_divider"></div>
+					<div class="item_characteristics_sizes">
+						<div class="item_characteristics_sizes_desc">size</div>
+						<ul class="item_characteristics_sizes_options">
+							<li class="item_characteristics_sizes_options_var"><a href="">42</a></li>
+							<li class="item_characteristics_sizes_options_var"><a href="">44</a></li>
+							<li class="item_characteristics_sizes_options_var"><a href="">46</a></li>
+							<li class="item_characteristics_sizes_options_var"><a href="">48</a></li>
+						</ul>
+					</div>
+					<div class="item_characteristics_divider"></div>
+					<div class="item_characteristics_price">$ @Model.Price</div>
+					<button class="item_characteristics_add_btn">add to card</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+@*<div style="padding: 10px;"></div>
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-4">
@@ -28,3 +125,4 @@
         </div>
     </div>
 </div>
+*@

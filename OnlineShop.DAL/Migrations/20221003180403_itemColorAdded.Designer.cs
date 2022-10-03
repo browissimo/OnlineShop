@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.DAL;
 
@@ -11,9 +12,10 @@ using OnlineShop.DAL;
 namespace OnlineShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221003180403_itemColorAdded")]
+    partial class itemColorAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace OnlineShop.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ColorItem", b =>
-                {
-                    b.Property<int>("ColorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ColorsId", "ItemsId");
-
-                    b.HasIndex("ItemsId");
-
-                    b.ToTable("ColorItem");
-                });
 
             modelBuilder.Entity("OnlineShop.Domain.Entity.Color", b =>
                 {
@@ -48,7 +35,7 @@ namespace OnlineShop.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RGB")
+                    b.Property<string>("rgb")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -70,6 +57,9 @@ namespace OnlineShop.DAL.Migrations
                     b.Property<int>("Collection")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ColorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -89,6 +79,8 @@ namespace OnlineShop.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ColorId");
 
                     b.ToTable("Items");
                 });
@@ -153,19 +145,13 @@ namespace OnlineShop.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ColorItem", b =>
+            modelBuilder.Entity("OnlineShop.Domain.Entity.Item", b =>
                 {
-                    b.HasOne("OnlineShop.Domain.Entity.Color", null)
+                    b.HasOne("OnlineShop.Domain.Entity.Color", "Color")
                         .WithMany()
-                        .HasForeignKey("ColorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ColorId");
 
-                    b.HasOne("OnlineShop.Domain.Entity.Item", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Color");
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Entity.Profile", b =>

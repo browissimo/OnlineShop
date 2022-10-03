@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
+using OnlineShop.Domain.Entity;
 
 namespace OnlineShop.Domain.ViewModels.Item
 {
@@ -15,12 +17,13 @@ namespace OnlineShop.Domain.ViewModels.Item
 
         public string Description { get; set; }
         public string Material { get; set; }
-
         [Required(ErrorMessage = "Input price")]
         public double Price { get; set; }
+        public List<Color> Colors { get; set; }
         public string ReleaseDate { get; set; }
         public string Collection { get; set; }
         public string Type { get; set; }
+        public string VendorCode { get; set; }
         public IFormFile Avatar { get; set; }
         public byte[]? Image { get; set; }
     }
