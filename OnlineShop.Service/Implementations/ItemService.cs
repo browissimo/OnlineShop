@@ -1,15 +1,14 @@
-﻿using OnlineShop.DAL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.DAL.Interfaces;
 using OnlineShop.Domain.Entity;
-using OnlineShop.Domain.Response;
-using OnlineShop.Service.Interfaces;
 using OnlineShop.Domain.Enum;
+using OnlineShop.Domain.Response;
+using OnlineShop.Domain.ViewModels.Item;
+using OnlineShop.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using OnlineShop.Domain.ViewModels.Item;
-using Microsoft.EntityFrameworkCore;
 
 namespace OnlineShop.Service.Implementations
 {

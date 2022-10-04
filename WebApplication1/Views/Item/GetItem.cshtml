@@ -69,11 +69,10 @@
 							@foreach (var color in @Model.Colors)
 							{
 							<li class="item_characteristics_colors_options_var">
-								<button class="item_characteristics_colors_options_var_btn">@color</button>
+								<button class="item_characteristics_colors_options_var_btn" style="background-color: rgb(@color.RGB)"></button>
 							</li>
 							}
 						</ul>
-						
 						@*<ul class="item_characteristics_colors_options">
 							<li class="item_characteristics_colors_options_var">
 								<button class="item_characteristics_colors_options_var_btn"></button>
