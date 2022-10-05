@@ -20,6 +20,7 @@ namespace OnlineShop.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Color> Colors { get; set; }
+        public DbSet<ItemImage> ItemImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -67,7 +67,8 @@ namespace OnlineShop.Service.Implementations
                     Material = item.Material,
                     Collection = item.Collection.ToString(),
                     Image = item.Avatar,
-                    Colors = item.Colors.ToList()
+                    ItemImages = item.ItemImages,
+                    Colors = item.Colors
                 };
 
                 return new BaseResponse<ItemViewModel>()
@@ -101,6 +102,8 @@ namespace OnlineShop.Service.Implementations
                         Price = item.Price,
                         Material = item.Material,
                         Collection = item.Collection.ToString(),
+                        Colors = item.Colors.ToList(),
+                        ItemImages = item.ItemImages.ToList(),
                         Image = item.Avatar
                     })
                     .Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
@@ -132,6 +135,8 @@ namespace OnlineShop.Service.Implementations
                     Price = model.Price,
                     Material = model.Material,
                     Collection = (Collections)Convert.ToInt32(model.Collection),
+                    Colors = model.Colors.ToList(),
+                    ItemImages = model.ItemImages.ToList(),
                     Avatar = imageData
                 };
                 await _itemRepository.Create(item);

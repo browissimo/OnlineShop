@@ -20,6 +20,7 @@ namespace OnlineShop.Domain.ViewModels.Item
         [Required(ErrorMessage = "Input price")]
         public double Price { get; set; }
         public List<Color> Colors { get; set; }
+        public List<ItemImage> ItemImages { get; set; }
         public string ReleaseDate { get; set; }
         public string Collection { get; set; }
         public string Type { get; set; }

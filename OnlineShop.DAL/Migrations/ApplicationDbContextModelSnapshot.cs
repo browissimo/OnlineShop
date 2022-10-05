@@ -93,6 +93,30 @@ namespace OnlineShop.DAL.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("OnlineShop.Domain.Entity.ItemImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ItemImages");
+                });
+
             modelBuilder.Entity("OnlineShop.Domain.Entity.Profile", b =>
                 {
                     b.Property<long>("Id")
@@ -168,6 +192,13 @@ namespace OnlineShop.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OnlineShop.Domain.Entity.ItemImage", b =>
+                {
+                    b.HasOne("OnlineShop.Domain.Entity.Item", null)
+                        .WithMany("ItemImage")
+                        .HasForeignKey("ItemId");
+                });
+
             modelBuilder.Entity("OnlineShop.Domain.Entity.Profile", b =>
                 {
                     b.HasOne("OnlineShop.Domain.Entity.User", "User")
@@ -177,6 +208,11 @@ namespace OnlineShop.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OnlineShop.Domain.Entity.Item", b =>
+                {
+                    b.Navigation("ItemImage");
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Entity.User", b =>

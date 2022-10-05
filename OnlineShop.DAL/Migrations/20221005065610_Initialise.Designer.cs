@@ -12,8 +12,8 @@ using OnlineShop.DAL;
 namespace OnlineShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220910141752_mbStart")]
-    partial class mbStart
+    [Migration("20221005065610_Initialise")]
+    partial class Initialise
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,40 @@ namespace OnlineShop.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ColorItem", b =>
+                {
+                    b.Property<int>("ColorsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ColorsId", "ItemsId");
+
+                    b.HasIndex("ItemsId");
+
+                    b.ToTable("ColorItem");
+                });
+
+            modelBuilder.Entity("OnlineShop.Domain.Entity.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RGB")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+                });
 
             modelBuilder.Entity("OnlineShop.Domain.Entity.Item", b =>
                 {
@@ -53,9 +87,36 @@ namespace OnlineShop.DAL.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("VendorCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("OnlineShop.Domain.Entity.ItemImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ItemImages");
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Entity.Profile", b =>
@@ -118,6 +179,28 @@ namespace OnlineShop.DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ColorItem", b =>
+                {
+                    b.HasOne("OnlineShop.Domain.Entity.Color", null)
+                        .WithMany()
+                        .HasForeignKey("ColorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineShop.Domain.Entity.Item", null)
+                        .WithMany()
+                        .HasForeignKey("ItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OnlineShop.Domain.Entity.ItemImage", b =>
+                {
+                    b.HasOne("OnlineShop.Domain.Entity.Item", null)
+                        .WithMany("ItemImage")
+                        .HasForeignKey("ItemId");
+                });
+
             modelBuilder.Entity("OnlineShop.Domain.Entity.Profile", b =>
                 {
                     b.HasOne("OnlineShop.Domain.Entity.User", "User")
@@ -127,6 +210,11 @@ namespace OnlineShop.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OnlineShop.Domain.Entity.Item", b =>
+                {
+                    b.Navigation("ItemImage");
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Entity.User", b =>
