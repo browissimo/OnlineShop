@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     ViewData["Title"] = "Главная";
 }
 
@@ -14,7 +16,11 @@
 					<div class="main_left_side_img"></div>
 					<div class="main_left_side_big_text">VSJJK</div>
 					<div class="main_left_side_small_text">PLACE</div>
-					<button class="main_left_side_btn">shop now</button>
+					<button class="main_left_side_btn">
+                        <a asp-controller="Item" asp-action="GetItem" asp-route-id="@Model.ElementAt(2).Id" class="card-link">
+                            shop now
+                        </a>
+                    </button>
 					<ul class="main_menu">
 						<li class="main_menu_item"><a href="#" class="main_menu_link">JACKETS</a></li>
 						<li class="main_menu_item"><a href="#" class="main_menu_link">COATS</a></li>
@@ -39,10 +45,12 @@
                 <div class="new_collections_center_img"></div>
                 <div class="new_collections_right_img"></div>
                 <div class="new_collections_text">new COLLECTION</div>
-                <button class="new_collections_btn">SEE ALL</button>
+                <button class="new_collections_btn" >SEE ALL</button>
             </div>
         </div>
     </section>
+
+    @await Html.PartialAsync("_NowInTrend")
 
 	<section class="trend">
         <div class="trend_divider"></div>
@@ -55,7 +63,7 @@
                 <div class="trends_first">
                     <div class="trends_first_left">
                         <div class="trends_first_left_img"></div>
-                        <div class="trends_first_left_desc">open back dress</div>
+                        <div class="trends_first_left_desc"></div>
                     </div>
                     <div class="trends_first_center">
                         <div class="trends_first_center_img"></div>

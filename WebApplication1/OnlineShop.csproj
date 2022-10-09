@@ -20,8 +20,4 @@
     <ProjectReference Include="..\OnlineShop.Service\OnlineShop.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\img\cards\ItemImages\" />
-  </ItemGroup>
-
 </Project>

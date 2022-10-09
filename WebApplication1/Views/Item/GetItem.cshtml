@@ -26,7 +26,7 @@
 			<div class="col-md-3 item_desc">
 				<div class="item_desc_head">
 					<div class="item_desc_head_name">@Model.Name</div>
-					<div class="item_desc_head_vendor_code">vendor_code @Model.VendorCode</div>
+					<div class="item_desc_head_vendor_code">vendor code @Model.VendorCode</div>
 				</div>
 				<div class="item_desc_size">
 					<div class="item_desc_size_desc">product size on the model:</div>
@@ -58,12 +58,8 @@
 			<div class="col-md-5 item_pic">
 				@foreach(var image in Model.ItemImages)
 				{
-					<div class="item_pic" style="background: url(../../img/cards/@image.Url) left no-repeat"></div>
+					<div class="item_pic_var" style="background: url(/img/cards/ItemImages/@image.Url) left center/cover no-repeat"></div>
 				}
-				@*<div class="item_pic_one" style="background: url(../img/cards/index/trends_second_left.png) center center/cover no-repeat"></div>
-				<div class="item_pic_two"></div>
-				<div class="item_pic_three"></div>
-				<div class="item_pic_four"></div>*@
 			</div>
 			<div class="col-md-3 item_characteristics">
 				<div class="item_characteristics_colors">
@@ -77,14 +73,6 @@
 						</li>
 						}
 					</ul>
-					@*<ul class="item_characteristics_colors_options">
-						<li class="item_characteristics_colors_options_var">
-							<button class="item_characteristics_colors_options_var_btn"></button>
-						</li>
-						<li class="item_characteristics_colors_options_var">
-							<button class="item_characteristics_colors_options_var_btn"></button>
-						</li>
-					</ul>*@
 				</div>
 				<div class="item_characteristics_divider"></div>
 				<div class="item_characteristics_sizes">

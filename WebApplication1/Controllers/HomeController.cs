@@ -7,11 +7,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using OnlineShop.Models;
 using OnlineShop.Domain.Entity;
+using OnlineShop.Service.Interfaces;
 
 namespace OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index() => View();
+        private readonly IItemService _itemService;
+
+        public HomeController(IItemService itemService)
+        {
+            _itemService = itemService;
+        }
+
+
+        public IActionResult Index()
+        {
+            var response = _itemService.GetItems();
+            if (response.StatusCode == Domain.Enum.StatusCode.Ok)
+            {
+                return View(response.Data);
+            }
+            return View("Error", $"{response.Description}");
+        }
     }
 }

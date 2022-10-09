@@ -25,7 +25,7 @@ namespace OnlineShop.Domain.ViewModels.Item
         public string Collection { get; set; }
         public string Type { get; set; }
         public string VendorCode { get; set; }
-        public IFormFile Avatar { get; set; }
+        public string Avatar { get; set; }
         public byte[]? Image { get; set; }
     }
 }

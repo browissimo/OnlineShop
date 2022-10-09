@@ -60,15 +60,17 @@ namespace OnlineShop.Service.Implementations
 
                 var data = new ItemViewModel()
                 {
+                    Id = item.Id,
                     ReleaseDate = item.ReleaseDate.ToLongDateString(),
                     Description = item.Description,
                     Name = item.Name,
                     Price = item.Price,
                     Material = item.Material,
                     Collection = item.Collection.ToString(),
-                    Image = item.Avatar,
+                    Avatar = item.Avatar,
                     ItemImages = item.ItemImages,
-                    Colors = item.Colors
+                    Colors = item.Colors,
+                    VendorCode = item.VendorCode
                 };
 
                 return new BaseResponse<ItemViewModel>()
@@ -103,8 +105,9 @@ namespace OnlineShop.Service.Implementations
                         Material = item.Material,
                         Collection = item.Collection.ToString(),
                         Colors = item.Colors.ToList(),
-                        ItemImages = item.ItemImages.ToList(),
-                        Image = item.Avatar
+                        ItemImages = item.ItemImages,
+                        Avatar = item.Avatar,
+                        VendorCode = item.VendorCode
                     })
                     .Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
                     .ToDictionaryAsync(x => x.Id, t => t.Name);
@@ -122,7 +125,7 @@ namespace OnlineShop.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Item>> Create(ItemViewModel model, byte[] imageData)
+        public async Task<IBaseResponse<Item>> Create(ItemViewModel model)
         {
             try
             {
@@ -136,8 +139,9 @@ namespace OnlineShop.Service.Implementations
                     Material = model.Material,
                     Collection = (Collections)Convert.ToInt32(model.Collection),
                     Colors = model.Colors.ToList(),
-                    ItemImages = model.ItemImages.ToList(),
-                    Avatar = imageData
+                    ItemImages = model.ItemImages,
+                    Avatar = model.Avatar,
+                    VendorCode = model.VendorCode
                 };
                 await _itemRepository.Create(item);
 

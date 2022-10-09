@@ -19,6 +19,6 @@ namespace OnlineShop.Domain.Entity
         public List<ItemImage> ItemImages { get; set; } = new();
         public Collections Collection { get; set; }
         public string VendorCode { get; set; }
-        public byte[] Avatar { get; set; }
+        public string Avatar { get; set; }
     }
 }
