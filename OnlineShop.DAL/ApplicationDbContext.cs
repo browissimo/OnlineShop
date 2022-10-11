@@ -56,6 +56,31 @@ namespace OnlineShop.DAL
                 builder.Property(x => x.Age);
                 builder.Property(x => x.Address).HasMaxLength(200).IsRequired(false);
             });
+
+
+            modelBuilder
+                .Entity<Item>()
+                .HasMany(c => c.Colors)
+                .WithMany(c => c.Items)
+                .UsingEntity<ItemColor>(
+                j => j
+                    .HasOne(pt => pt.Color)
+                    .WithMany(p => p.itemColors)
+                    .HasForeignKey(pt => pt.ColorId),
+                j => j
+                    .HasOne(pt => pt.Item)
+                    .WithMany(t => t.itemColors)
+                    .HasForeignKey(pt => pt.ItemID),
+                j =>
+                {
+                    j.Property(pt => pt.ModelSize);
+                    j.Property(pt => pt.ModelCharacteristics);
+                    j.HasKey(t => t.id);
+                    j.ToTable("ItemColors");
+            });
+            
+            //modelBuilder.
+            //    Entity<>
         }
     }
 }

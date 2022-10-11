@@ -10,12 +10,11 @@ namespace OnlineShop.Domain.Entity
 	public class ColorImage
 	{
 		public int Id { get; set; }
-		public string Name { get; set; }
+		//public string Name { get; set; }
 		public string Url { get; set; }
 
-        [ForeignKey("RGB")]
-		public string RGB { get; set; }
-		public Color Color { get; set; }
+		public int ItemColorId { get; set; }
+		public ItemColor ItemColor { get; set; }
 
 	}
 }

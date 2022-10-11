@@ -15,8 +15,11 @@ namespace OnlineShop.Domain.Entity
         public string Material { get; set; }
         public double Price { get; set; }
         public DateTime ReleaseDate { get; set; }
+
         public List<Color> Colors { get; set; } = new();
-        public List<ItemImage> ItemImages { get; set; } = new();
+        public List<ItemColor> itemColors { get; set; } = new();
+        
+        //public List<ItemImage> ItemImages { get; set; } = new();
         public Collections Collection { get; set; }
         public string VendorCode { get; set; }
         public string Avatar { get; set; }

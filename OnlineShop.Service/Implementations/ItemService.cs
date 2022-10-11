@@ -15,10 +15,13 @@ namespace OnlineShop.Service.Implementations
     public class ItemService : IItemService
     {
         private readonly IBaseRepository<Item> _itemRepository;
+        private readonly IBaseRepository<ItemColor> _itemColorRepository;
 
-        public ItemService(IBaseRepository<Item> itemRepository)
+        public ItemService(IBaseRepository<Item> itemRepository, IBaseRepository<ItemColor> itemColorRepository)
         {
             _itemRepository = itemRepository;
+            _itemColorRepository = itemColorRepository;
+
         }
 
         public BaseResponse<Dictionary<int, string>> GetTypes()
@@ -49,6 +52,7 @@ namespace OnlineShop.Service.Implementations
             try
             {
                 var item = await _itemRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                var ItemColors = await _itemColorRepository.GetAll().FirstOrDefaultAsync(x => x.ItemID == id);
                 if (item == null)
                 {
                     return new BaseResponse<ItemViewModel>()
@@ -68,7 +72,7 @@ namespace OnlineShop.Service.Implementations
                     Material = item.Material,
                     Collection = item.Collection.ToString(),
                     Avatar = item.Avatar,
-                    ItemImages = item.ItemImages,
+                    ColorImages = ItemColors.ColorImages,
                     Colors = item.Colors,
                     VendorCode = item.VendorCode
                 };
@@ -105,7 +109,7 @@ namespace OnlineShop.Service.Implementations
                         Material = item.Material,
                         Collection = item.Collection.ToString(),
                         Colors = item.Colors.ToList(),
-                        ItemImages = item.ItemImages,
+                        //ItemImages = item.ItemImages,
                         Avatar = item.Avatar,
                         VendorCode = item.VendorCode
                     })
@@ -139,7 +143,7 @@ namespace OnlineShop.Service.Implementations
                     Material = model.Material,
                     Collection = (Collections)Convert.ToInt32(model.Collection),
                     Colors = model.Colors.ToList(),
-                    ItemImages = model.ItemImages,
+                    //ItemImages = model.ItemImages,
                     Avatar = model.Avatar,
                     VendorCode = model.VendorCode
                 };

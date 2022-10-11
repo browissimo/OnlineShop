@@ -16,7 +16,8 @@ namespace OnlineShop
             services.AddScoped<IBaseRepository<User>, UserRepository>();
             services.AddScoped<IBaseRepository<Profile>, ProfileRepository>();
             services.AddScoped<IBaseRepository<Color>, ColorRepository> ();
-            
+            services.AddScoped<IBaseRepository<ItemColor>, ItemColorRepository>();
+
         }
 
         public static void InitializeServices(this IServiceCollection services)

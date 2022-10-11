@@ -1,4 +1,5 @@
-﻿using OnlineShop.DAL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.DAL.Interfaces;
 using OnlineShop.Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,8 @@ namespace OnlineShop.DAL.Repositories
 
         public IQueryable<ItemColor> GetAll()
         {
-            return _context.ItemColors;
+            var test = _context.ItemColors.Include(c => c.ColorImages);
+            return test;
         }
 
         public async Task<ItemColor> Update(ItemColor entity)

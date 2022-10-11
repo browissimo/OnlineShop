@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineShop.DAL.Migrations
 {
-    public partial class test : Migration
+    public partial class i1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,12 +16,11 @@ namespace OnlineShop.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RGB = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RGB = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Colors", x => x.Id);
-                    table.UniqueConstraint("AK_Colors_RGB", x => x.RGB);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,19 +29,18 @@ namespace OnlineShop.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VendorCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Collection = table.Column<int>(type: "int", nullable: false),
-                    Avatar = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    VendorCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
-                    table.UniqueConstraint("AK_Items_VendorCode", x => x.VendorCode);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,47 +62,28 @@ namespace OnlineShop.DAL.Migrations
                 name: "ItemColors",
                 columns: table => new
                 {
-                    VendorCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RGB = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItemID = table.Column<int>(type: "int", nullable: false),
+                    ColorId = table.Column<int>(type: "int", nullable: false),
                     ModelSize = table.Column<int>(type: "int", nullable: false),
                     ModelCharacteristics = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemColors", x => new { x.VendorCode, x.RGB });
+                    table.PrimaryKey("PK_ItemColors", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ItemColor_Colors_RGB",
-                        column: x => x.RGB,
+                        name: "FK_ItemColors_Colors_ColorId",
+                        column: x => x.ColorId,
                         principalTable: "Colors",
-                        principalColumn: "RGB",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ItemColor_Colors_VendorCode",
-                        column: x => x.VendorCode,
+                        name: "FK_ItemColors_Items_ItemID",
+                        column: x => x.ItemID,
                         principalTable: "Items",
-                        principalColumn: "VendorCode",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ItemId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ItemImages_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -128,20 +107,45 @@ namespace OnlineShop.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ColorImage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ItemColorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ColorImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ColorImage_ItemColors_ItemColorId",
+                        column: x => x.ItemColorId,
+                        principalTable: "ItemColors",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Name", "Password", "Role" },
                 values: new object[] { 1L, "Browissimo", "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 2 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemColors_RGB",
-                table: "ItemColors",
-                column: "RGB");
+                name: "IX_ColorImage_ItemColorId",
+                table: "ColorImage",
+                column: "ItemColorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemImages_ItemId",
-                table: "ItemImages",
-                column: "ItemId");
+                name: "IX_ItemColors_ColorId",
+                table: "ItemColors",
+                column: "ColorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemColors_ItemID",
+                table: "ItemColors",
+                column: "ItemID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Profiles_UserId",
@@ -153,22 +157,22 @@ namespace OnlineShop.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ItemColors");
-
-            migrationBuilder.DropTable(
-                name: "ItemImages");
+                name: "ColorImage");
 
             migrationBuilder.DropTable(
                 name: "Profiles");
+
+            migrationBuilder.DropTable(
+                name: "ItemColors");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Colors");
 
             migrationBuilder.DropTable(
                 name: "Items");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

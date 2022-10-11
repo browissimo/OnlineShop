@@ -9,16 +9,18 @@ namespace OnlineShop.Domain.Entity
 {
     public class ItemColor
     {
-        public int Id { get; set; }
-        [ForeignKey("VendorCode")]
-        public string VendorCode { get; set; }
+        public int id { get; set; }
+
+        public int ItemID { get; set; }
         public Item Item { get; set; }
 
-        [ForeignKey("RGB")]
-        public string RGB { get; set; }
+        public int ColorId { get; set; }
         public Color Color { get; set; }
 
         public int ModelSize { get; set; }
         public string ModelCharacteristics { get; set; }
+
+        //public int ColorImagesId { get; set; }
+        public List<ColorImage> ColorImages { get; set; }
     }
 }
