@@ -93,7 +93,7 @@ namespace OnlineShop.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<Dictionary<int, string>>> GetItem(string term)
+        public async Task<BaseResponse<Dictionary<int, string>>> GetItemsByType(string type)
         {
             var baseResponse = new BaseResponse<Dictionary<int, string>>();
             try
@@ -113,7 +113,7 @@ namespace OnlineShop.Service.Implementations
                         Avatar = item.Avatar,
                         VendorCode = item.VendorCode
                     })
-                    .Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
+                    .Where(x => EF.Functions.Like(x.Type, $"%{type}%"))
                     .ToDictionaryAsync(x => x.Id, t => t.Name);
 
                 baseResponse.Data = items;

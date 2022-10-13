@@ -41,9 +41,9 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetItem(string term, int page = 1, int pageSize = 5)
+        public async Task<IActionResult> GetItemsByType(string type, int page = 1, int pageSize = 5)
         {
-            var response = await _itemService.GetItem(term);
+            var response = await _itemService.GetItemsByType(type);
             return Json(response.Data);
         }
 

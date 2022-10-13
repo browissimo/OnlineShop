@@ -13,7 +13,7 @@ namespace OnlineShop.Service.Interfaces
 
         Task<IBaseResponse<ItemViewModel>> GetItem(int id);
 
-        Task<BaseResponse<Dictionary<int, string>>> GetItem(string term);
+        Task<BaseResponse<Dictionary<int, string>>> GetItemsByType(string type);
 
         Task<IBaseResponse<Item>> Create(ItemViewModel Item);
 
