@@ -10,18 +10,18 @@ namespace OnlineShop.Domain.Enum
 {
     public enum ItemTypes
     {
-        [Display(Name = "Jacket")]
-        Jacket = 1,
         [Display(Name = "Coat")]
-        Coat = 2,
+        Coat = 1,
         [Display(Name = "Denim")]
-        Denim = 3,
+        Denim = 2,
         [Display(Name = "Dress")]
-        Dress = 4,
-        [Display(Name = "Short")]
-        Short = 5,
+        Dress = 3,
+        [Display(Name = "Jacket")]
+        Jacket = 4,
         [Display(Name = "Shirt")]
-        Shirt = 6,
+        Shirt = 5,
+        [Display(Name = "Short")]
+        Short = 6,
         [Display(Name = "Tshirt")]
         Tshirt = 7
     }

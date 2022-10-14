@@ -9,8 +9,8 @@
 
 <head>
     <link rel="stylesheet" href="~/css/catalog.min.css">
+	<link rel="stylesheet" href="~/css/index.min.css">
 </head>
-
 	<section class="caterogy">
 		<div class="container">
 			<div class="category_divider"></div>
@@ -72,7 +72,7 @@
 				{
 					<div class="col-md-3">
 						<a asp-controller="Item" asp-action="GetItem" asp-route-id="@Model.ElementAt(0).Id" class="card-link">
-							<div class="items_first_one_image" style="background: url(../../img/cards/itemsAvatars/@Model.ElementAt(1).Avatar) center center/cover no-repeat"></div>
+							<div class="items_first_one_image" style="background: url(../../img/cards/itemsAvatars/@Model.ElementAt(0).Avatar) center center/cover no-repeat"></div>
 						</a>
 						<div class="items_first_one_desc">
 							<div class="items_first_one_desc_text">@Model.ElementAt(0).Name</div>
@@ -90,7 +90,7 @@
 				{
 					<div class="col-md-3">
 						<a asp-controller="Item" asp-action="GetItem" asp-route-id="@Model.ElementAt(1).Id" class="card-link">
-							<div class="items_first_two_image" style="background: url(../../img/cards/itemsAvatars/@Model.ElementAt(2).Avatar) center center/cover no-repeat"></div>
+							<div class="items_first_two_image" style="background: url(../../img/cards/itemsAvatars/@Model.ElementAt(1).Avatar) center center/cover no-repeat"></div>
 						</a>
 						<div class="items_first_two_desc">
 							<div class="items_first_two_desc_text">@Model.ElementAt(1).Name</div>
@@ -286,7 +286,7 @@
 		</div>
 	</section>
 	
-
+	<script src="~/js/index.js"></script>
 
 
 @*<style>
