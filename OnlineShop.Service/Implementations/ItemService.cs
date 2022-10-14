@@ -2,6 +2,7 @@
 using OnlineShop.DAL.Interfaces;
 using OnlineShop.Domain.Entity;
 using OnlineShop.Domain.Enum;
+using OnlineShop.Domain.Extensions;
 using OnlineShop.Domain.Response;
 using OnlineShop.Domain.ViewModels.Item;
 using OnlineShop.Service.Interfaces;
@@ -28,7 +29,7 @@ namespace OnlineShop.Service.Implementations
         {
             try
             {
-                var types = ((Types[])Enum.GetValues(typeof(Types)))
+                var types = ((ItemTypes[])Enum.GetValues(typeof(ItemTypes)))
                     .ToDictionary(k => (int)k, t => t.ToString());
 
                 return new BaseResponse<Dictionary<int, string>>()
@@ -93,12 +94,13 @@ namespace OnlineShop.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<Dictionary<int, string>>> GetItemsByType(string type)
+        public async Task<IBaseResponse<List<ItemViewModel>>> GetItemsByType(string type)
         {
-            var baseResponse = new BaseResponse<Dictionary<int, string>>();
+            var baseResponse = new BaseResponse<List<ItemViewModel>>();
             try
             {
-                var items = await _itemRepository.GetAll()
+                var test =  _itemRepository.GetAll().ToList();
+                var t2 =  _itemRepository.GetAll()
                     .Select(item => new ItemViewModel()
                     {
                         Id = item.Id,
@@ -110,24 +112,81 @@ namespace OnlineShop.Service.Implementations
                         Collection = item.Collection.ToString(),
                         Colors = item.Colors.ToList(),
                         //ItemImages = item.ItemImages,
+                        ItemType = item.ItemType.GetDisplayName(),
+                        Avatar = item.Avatar,
+                        VendorCode = item.VendorCode
+                    }).ToList();
+                var items =  _itemRepository.GetAll()
+                    //.Where(item => item.ItemType.Equals(type))
+                    .Select(item => new ItemViewModel()
+                    {
+                        Id = item.Id,
+                        ReleaseDate = item.ReleaseDate.ToLongDateString(),
+                        Description = item.Description,
+                        Name = item.Name,
+                        Price = item.Price,
+                        Material = item.Material,
+                        Collection = item.Collection.ToString(),
+                        Colors = item.Colors.ToList(),
+                        //ItemImages = item.ItemImages,
+                        ItemType = item.ItemType.GetDisplayName(),
                         Avatar = item.Avatar,
                         VendorCode = item.VendorCode
                     })
-                    .Where(x => EF.Functions.Like(x.Type, $"%{type}%"))
-                    .ToDictionaryAsync(x => x.Id, t => t.Name);
+                    //.Where(item => EF.Functions.Like(item.ItemType, $"%{type}%"))
+                    //.Where(p => p.Name.StartsWith("D"))
+                   //.ToDictionaryAsync(x => x.Id, t => t.Name);
+                   .ToList().Where(x=>x.ItemType.Equals(type)).ToList();
 
                 baseResponse.Data = items;
                 return baseResponse;
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Dictionary<int, string>>()
+                return new BaseResponse<List<ItemViewModel>>()
                 {
                     Description = ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
+
+        //public async Task<BaseResponse<Dictionary<int, string>>> GetItemsByType(string type)
+        //{
+        //    var baseResponse = new BaseResponse<Dictionary<int, string>>();
+        //    try
+        //    {
+        //        var items = await _itemRepository.GetAll()
+        //            .Select(item => new ItemViewModel()
+        //            {
+        //                Id = item.Id,
+        //                ReleaseDate = item.ReleaseDate.ToLongDateString(),
+        //                Description = item.Description,
+        //                Name = item.Name,
+        //                Price = item.Price,
+        //                Material = item.Material,
+        //                Collection = item.Collection.ToString(),
+        //                Colors = item.Colors.ToList(),
+        //                //ItemImages = item.ItemImages,
+        //                Type = item.Type.GetDisplayName(),
+        //                Avatar = item.Avatar,
+        //                VendorCode = item.VendorCode
+        //            })
+        //            .Where(x => EF.Functions.Like(x.Name, $"%{type}%"))
+        //            .ToDictionaryAsync(x => x.Id, t => t.Name);
+
+        //        baseResponse.Data = items;
+        //        return baseResponse;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new BaseResponse<Dictionary<int, string>>()
+        //        {
+        //            Description = ex.Message,
+        //            StatusCode = StatusCode.InternalServerError
+        //        };
+        //    }
+        //}
 
         public async Task<IBaseResponse<Item>> Create(ItemViewModel model)
         {

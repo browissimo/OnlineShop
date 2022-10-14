@@ -14,6 +14,7 @@
         item.addEventListener('click', () => {
             hamburger.classList.toggle('hamburger_active');
             menu.classList.toggle('main_menu_active');
+            mainMenuDiv.classList.toggle('main_menu_div_active');
         })
     })
 })

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.DAL;
 
@@ -11,9 +12,10 @@ using OnlineShop.DAL;
 namespace OnlineShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221014090146_typesFix")]
+    partial class typesFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,9 +81,6 @@ namespace OnlineShop.DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ItemType")
-                        .HasColumnType("int");
-
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
@@ -93,6 +92,9 @@ namespace OnlineShop.DAL.Migrations
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<string>("VendorCode")
                         .HasColumnType("nvarchar(max)");

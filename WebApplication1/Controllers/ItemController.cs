@@ -40,11 +40,12 @@ namespace OnlineShop.Controllers
             return PartialView("GetItem", response.Data);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetItemsByType(string type, int page = 1, int pageSize = 5)
+        //[HttpPost]
+        public async Task<IActionResult> GetItemsByType(string type)//, int page = 1, int pageSize = 5)
         {
             var response = await _itemService.GetItemsByType(type);
-            return Json(response.Data);
+            //return Json(response.Data);
+            return View("GetItems", response.Data);
         }
 
         [Authorize(Roles = "Admin")]

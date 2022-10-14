@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using OnlineShop.Domain.Entity;
+using OnlineShop.Domain.Enum;
 
 namespace OnlineShop.Domain.ViewModels.Item
 {
@@ -23,7 +24,7 @@ namespace OnlineShop.Domain.ViewModels.Item
         public List<ColorImage> ColorImages { get; set; }
         public string ReleaseDate { get; set; }
         public string Collection { get; set; }
-        public string Type { get; set; }
+        public string ItemType { get; set; }
         public string VendorCode { get; set; }
         public string Avatar { get; set; }
         public byte[] Image { get; set; }
