@@ -30,7 +30,7 @@ namespace OnlineShop.DAL.Repositories
 
         public IQueryable<Item> GetAll()
         {
-            return _context.Items.Include(i => i.Colors);
+            return _context.Items.Include(i => i.Colors).Include(s => s.Sizes);
         }
 
         public async Task<Item> Update(Item entity)

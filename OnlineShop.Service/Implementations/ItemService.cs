@@ -73,9 +73,12 @@ namespace OnlineShop.Service.Implementations
                     Material = item.Material,
                     Collection = item.Collection.ToString(),
                     Avatar = item.Avatar,
-                    ColorImages = ItemColors.ColorImages,
                     Colors = item.Colors,
-                    VendorCode = item.VendorCode
+                    VendorCode = item.VendorCode,
+                    Sizes = item.Sizes,
+                    ColorImages = ItemColors.ColorImages,
+                    ModelCharacteristics = ItemColors.ModelCharacteristics,
+                    ModelSize = ItemColors.ModelSize
                 };
 
                 return new BaseResponse<ItemViewModel>()

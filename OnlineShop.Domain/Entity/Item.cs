@@ -18,7 +18,9 @@ namespace OnlineShop.Domain.Entity
 
         public List<Color> Colors { get; set; } = new();
         public List<ItemColor> itemColors { get; set; } = new();
-        
+
+        public List<Size> Sizes { get; set; } = new();
+
         //public List<ItemImage> ItemImages { get; set; } = new();
         public ItemTypes ItemType { get; set; }
         public Collections Collection { get; set; }

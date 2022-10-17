@@ -21,9 +21,9 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult GetItems()
         {
-            var response = _itemService.GetItems();
-
             ViewBag.Type = "All";
+
+            var response = _itemService.GetItems();
 
             if (response.StatusCode == Domain.Enum.StatusCode.Ok)
             {
@@ -36,10 +36,10 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> GetItem(int id, bool isJson)
         {
             var response = await _itemService.GetItem(id);
-            if (isJson)
-            {
-                return Json(response.Data);
-            }
+            //if (isJson)
+            //{
+            //    return Json(response.Data);
+            //}
             return PartialView("GetItem", response.Data);
         }
 

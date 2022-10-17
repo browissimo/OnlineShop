@@ -329,20 +329,27 @@
     border: 1px solid #000
 }
 
-    .item_characteristics_sizes_options_var a {
-        padding: 9px;
-        font-family: "Arial Black";
-        font-weight: 900;
-        font-size: 16px;
-        line-height: 23px;
-        color: rgba(0,0,0,.76);
-        text-decoration: none
-    }
+.item_characteristics_sizes_options_var a {
+    padding: 9px;
+    font-family: "Arial Black";
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 23px;
+    color: rgba(0,0,0,.76);
+    text-decoration: none
+}
+
+.btn.btn-secondary {
+    background-color: white;
+    color: black;
+    border-radius: 0px;
+    margin-right: 10px;
+}
 
 .item_characteristics_price {
     margin-top: 21px;
     position: relative;
-    left: 60%;
+    left: 55%;
     font-family: "Arial Black";
     font-style: normal;
     font-weight: 900;

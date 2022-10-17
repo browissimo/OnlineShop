@@ -30,12 +30,16 @@
 				</div>
 				<div class="item_desc_size">
 					<div class="item_desc_size_desc">product size on the model:</div>
-					<div class="item_desc_size_value">42</div>
+					<div class="item_desc_size_value">@Model.ModelSize</div>
 				</div>
-				<div class="item_desc_parameters">
-					<div class="item_desc_parameters_desc">model parameters:</div>
-					<div class="item_desc_parameters_value">86-60-92</div>
-				</div>
+				@if (Model.ModelCharacteristics != null)
+				{
+					<div class="item_desc_parameters">
+						<div class="item_desc_parameters_desc">model parameters:</div>
+						<div class="item_desc_parameters_value">@Model.ModelCharacteristics</div>
+					</div>
+				}
+				
 				<div class="item_desc_composition">
 					<div class="item_desc_composition_head">
 						<button class="item_desc_composition_head_btn collapsible">composition and care</button>
@@ -76,13 +80,25 @@
 				</div>
 				<div class="item_characteristics_divider"></div>
 				<div class="item_characteristics_sizes">
-					<div class="item_characteristics_sizes_desc">size</div>
-					<ul class="item_characteristics_sizes_options">
-						<li class="item_characteristics_sizes_options_var"><a href="">42</a></li>
+					<div class="item_characteristics_sizes_desc">sizes</div>
+					<vid class="item_characteristics_sizes_options">
+						@*@foreach (var size in Model.Sizes)
+					    {
+						   <li class="item_characteristics_sizes_options_var"><a href="">@size.Value</a></li>
+					    }*@
+						@foreach (var size in Model.Sizes)
+						{
+							<input type="radio" class="btn-check item_characteristics_sizes_options_var" name="size" id="size @size.Value" value="@size.Value" />
+							<label class="btn btn-secondary" for="size @size.Value">@size.Value</label>
+
+							@*<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
+							<label class="btn btn-secondary" for="option1">Checked</label>*@
+						}
+						@*<li class="item_characteristics_sizes_options_var"><a href="">42</a></li>
 						<li class="item_characteristics_sizes_options_var"><a href="">44</a></li>
 						<li class="item_characteristics_sizes_options_var"><a href="">46</a></li>
-						<li class="item_characteristics_sizes_options_var"><a href="">48</a></li>
-					</ul>
+						<li class="item_characteristics_sizes_options_var"><a href="">48</a></li>*@
+					</vid>
 				</div>
 				<div class="item_characteristics_divider"></div>
 				<div class="item_characteristics_price">$ @Model.Price</div>
