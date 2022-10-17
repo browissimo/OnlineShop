@@ -9,7 +9,7 @@ namespace OnlineShop.Service.Interfaces
     public interface IItemService
     {
         BaseResponse<Dictionary<int, string>> GetTypes();
-        IBaseResponse<List<Item>> GetItems();
+        IBaseResponse<List<ItemViewModel>> GetItems();
 
         Task<IBaseResponse<ItemViewModel>> GetItem(int id);
 

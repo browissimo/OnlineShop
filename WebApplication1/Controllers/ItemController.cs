@@ -22,6 +22,9 @@ namespace OnlineShop.Controllers
         public IActionResult GetItems()
         {
             var response = _itemService.GetItems();
+
+            ViewBag.Type = "All";
+
             if (response.StatusCode == Domain.Enum.StatusCode.Ok)
             {
                 return View(response.Data);

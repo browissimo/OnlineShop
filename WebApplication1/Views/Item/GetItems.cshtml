@@ -14,7 +14,15 @@
 	<section class="caterogy">
 		<div class="container">
 			<div class="category_divider"></div>
-			<div class="category_name">@Model.ElementAt(0).ItemType</div>
+			@if (ViewBag.Type == "All")
+			{
+				<div class="category_name">ALL</div>
+			}
+			else
+			{
+				<div class="category_name">@Model.ElementAt(0).ItemType</div>
+			}
+			
 			<div class="row gx-0">
 				<div class="col-md-1 offset-md-1">
 					<div class="dropdown">
