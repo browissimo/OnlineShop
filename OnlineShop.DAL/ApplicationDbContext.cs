@@ -73,14 +73,10 @@ namespace OnlineShop.DAL
                     .HasForeignKey(pt => pt.ItemID),
                 j =>
                 {
-                    j.Property(pt => pt.ModelSize);
                     j.Property(pt => pt.ModelCharacteristics);
                     j.HasKey(t => t.id);
                     j.ToTable("ItemColors");
-            });
-            
-            //modelBuilder.
-            //    Entity<>
+            });               
         }
     }
 }

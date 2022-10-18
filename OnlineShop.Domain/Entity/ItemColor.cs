@@ -17,10 +17,15 @@ namespace OnlineShop.Domain.Entity
         public int ColorId { get; set; }
         public Color Color { get; set; }
 
-        public int ModelSize { get; set; }
+        //public int ModelSize { get; set; }
+
+        public int SizeID { get; set; }
+        public Size Size { get; set; }
+
+
+
         public string ModelCharacteristics { get; set; }
 
-        //public int ColorImagesId { get; set; }
         public List<ColorImage> ColorImages { get; set; }
     }
 }

@@ -78,7 +78,7 @@ namespace OnlineShop.Service.Implementations
                     Sizes = item.Sizes,
                     ColorImages = ItemColors.ColorImages,
                     ModelCharacteristics = ItemColors.ModelCharacteristics,
-                    ModelSize = ItemColors.ModelSize
+                    ModelSize = ItemColors.Size.Value
                 };
 
                 return new BaseResponse<ItemViewModel>()
