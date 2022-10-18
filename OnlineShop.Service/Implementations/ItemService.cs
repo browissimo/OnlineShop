@@ -66,12 +66,12 @@ namespace OnlineShop.Service.Implementations
                 var data = new ItemViewModel()
                 {
                     Id = item.Id,
-                    ReleaseDate = item.ReleaseDate.ToLongDateString(),
-                    Description = item.Description,
+                    //ReleaseDate = item.ReleaseDate.ToLongDateString(),
+                    //Description = item.Description,
                     Name = item.Name,
                     Price = item.Price,
-                    Material = item.Material,
-                    Collection = item.Collection.ToString(),
+                    //Material = item.Material,
+                    //Collection = item.Collection.ToString(),
                     Avatar = item.Avatar,
                     Colors = item.Colors,
                     VendorCode = item.VendorCode,
