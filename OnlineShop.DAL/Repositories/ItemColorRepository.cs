@@ -32,8 +32,7 @@ namespace OnlineShop.DAL.Repositories
 
         public IQueryable<ItemColor> GetAll()
         {
-            var test = _context.ItemColors.Include(c => c.ColorImages);
-            return test;
+            return _context.ItemColors.Include(c => c.ColorImages).Include(s => s.Size);
         }
 
         public async Task<ItemColor> Update(ItemColor entity)

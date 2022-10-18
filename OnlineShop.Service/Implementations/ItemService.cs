@@ -106,17 +106,16 @@ namespace OnlineShop.Service.Implementations
                     .Select(item => new ItemViewModel()
                     {
                         Id = item.Id,
-                        ReleaseDate = item.ReleaseDate.ToLongDateString(),
-                        Description = item.Description,
+                        //ReleaseDate = item.ReleaseDate.ToLongDateString(),
+                        //Description = item.Description,
                         Name = item.Name,
-                        Price = item.Price,
-                        Material = item.Material,
-                        Collection = item.Collection.ToString(),
-                        Colors = item.Colors.ToList(),
-                        //ItemImages = item.ItemImages,
+                        //Price = item.Price,
+                        //Material = item.Material,
+                        //Collection = item.Collection.ToString(),
+                        //Colors = item.Colors.ToList(),
                         ItemType = item.ItemType.GetDisplayName(),
                         Avatar = item.Avatar,
-                        VendorCode = item.VendorCode
+                        //VendorCode = item.VendorCode
                     })
                    .ToList().Where(x=>x.ItemType.Equals(type)).ToList();
 
@@ -251,17 +250,16 @@ namespace OnlineShop.Service.Implementations
                     .Select(item => new ItemViewModel()
                     {
                         Id = item.Id,
-                        ReleaseDate = item.ReleaseDate.ToLongDateString(),
-                        Description = item.Description,
+                        //ReleaseDate = item.ReleaseDate.ToLongDateString(),
+                        //Description = item.Description,
                         Name = item.Name,
-                        Price = item.Price,
-                        Material = item.Material,
-                        Collection = item.Collection.ToString(),
-                        Colors = item.Colors.ToList(),
-                        //ItemImages = item.ItemImages,
+                        //Price = item.Price,
+                        //Material = item.Material,
+                        //Collection = item.Collection.ToString(),
+                        //Colors = item.Colors.ToList(),
                         ItemType = item.ItemType.GetDisplayName(),
                         Avatar = item.Avatar,
-                        VendorCode = item.VendorCode
+                        //VendorCode = item.VendorCode
                     }).ToList();
 
                 if (!items.Any())

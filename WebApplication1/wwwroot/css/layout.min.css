@@ -42,7 +42,7 @@ nav {
 
     nav .logo_link {
         display: inline-block;
-        margin: 25px auto
+        margin: 18px auto
     }
 
     nav .items {
@@ -53,15 +53,17 @@ nav {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        align-items: center;
         -webkit-box-pack: end;
         -ms-flex-pack: end;
         justify-content: flex-end;
         list-style-type: none;
-        margin-top: 25px
+        margin-top: 15px
     }
 
     nav .items_list_item {
-        margin-right: 23px
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
 .main_menu_div {
