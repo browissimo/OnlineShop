@@ -20,8 +20,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 	<link rel="stylesheet" href="~/css/layout.min.css">
+    <link rel="stylesheet" href="~/css/loginRegister.css">
 </head>
-<body class="backgroundImage">
+<body>
     <header>
 		<nav>
 			<div class="container">
@@ -44,8 +45,6 @@
 						<div class="items">
 							<ul class="items_list">
 								<li class="items_list_item">
-									@*<img src="~/icons/magnifying_glass.svg" alt="search" class="items_list_item_img">
-									<a href="#" class="link"></a>*@
                                     <form class="items_list_item_search">
                                         <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                                     </form>
@@ -55,8 +54,9 @@
 									<a href="#" class="link"></a>
 								</li>
 								<li class="items_list_item">
-									<img src="~/icons/basket.svg" alt="basket" class="items_list_item_img">
-									<a href="#" class="link"></a>
+                                    <a asp-controller="Cart" asp-action="GetCart" class="link">
+                                        <img src="~/icons/basket.svg" alt="basket" class="items_list_item_img">
+                                    </a>
 								</li>
 							</ul>
 						</div>
@@ -76,7 +76,9 @@
 			</div>
 		</nav>
 	</header>
-    @*<header>
+
+
+   @* <header>
         <nav class="navbar navbar-expand-lg" style="background-color: white;">
             <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:black; font-family:Impact; font-size:30px; background-color:white; border-radius:10px;">VSJJK</span><img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;"></a>
             <button class="navbar-toggler badge-light" style="border-radius:10px;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,17 +178,14 @@
             </div>
         </nav>
     </header>*@
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-@*    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
     <div class="container">
 		<footer>
 			<div class="row gx-0">
@@ -236,8 +235,11 @@
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>*@
-    <script src="js/index.js"></script>
+    
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="js/LoginRegister.js"></script>
+    <script src="js/index.js"></script>
     @await RenderSectionAsync("pageScripts", required: false)
 </body>
 </html>

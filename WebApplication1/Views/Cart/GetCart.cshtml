@@ -1,0 +1,184 @@
+﻿
+@{
+    //ViewData["Title"] = "GetCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+	<link rel="stylesheet" href="~/css/cart.min.css">
+</head>
+
+<section class="checkout">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					
+					<div class="row">
+						<div class="col-md-12">
+							
+							<div class="checkout_contacts">
+								<div class="checkout_contacts_head">CONTACTS</div>
+								<div class="checkout_contacts_body">
+									<div class="row">
+										<div class="col-md-6"><input type="text" placeholder="LAST NAME" class="checkout_contacts_last_name"></div>
+										<div class="col-md-6"><input type="text" placeholder="FIRST NAME" class="checkout_contacts_first_name">	</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6"><input type="email" placeholder="EMAIL" class="checkout_contacts_email"></div>
+										<div class="col-md-6"><input type="text" placeholder="PHONE" class="checkout_contacts_phone"></div>
+									</div>
+								</div>
+							</div>
+							<div class="checkout_shipping_information">
+								<div class="checkout_shipping_information_head">SHIPPING INFORMATION</div>
+								<div class="checkout_shipping_information_body">
+									<div class="row">
+										<div class="col-md-6"><input type="text" placeholder="COUNTRY" class="checkout_shipping_information_country"></div>
+										<div class="col-md-6"><input type="text" placeholder="REGION" class="checkout_shipping_information_region"></div>
+									</div>
+									<div class="row">
+										<div class="col-md-6"><input type="text" placeholder="CITY" class="checkout_shipping_information_city"></div>
+										<div class="col-md-6"><input type="text" placeholder="ADDRESS" class="checkout_shipping_information_address"></div>
+									</div>
+									<div class="row">
+										<div class="col-md-6"><input type="text" placeholder="HOUSE" class="checkout_shipping_information_house"></div>
+										<div class="col-md-6"><input type="text" placeholder="APARTMENTS" class="checkout_shipping_information_apartments"></div>
+									</div>
+									<div class="row">
+										<div class="col-md-6"><input type="text" placeholder="ZIP CODE" class="checkout_shipping_information_zipcode"></div>
+										<div class="col-md-6"><input type="text" placeholder="COMMENTS" class="checkout_shipping_information_comments"></div>
+									</div>
+								</div>
+							</div>
+							<div class="checkout_shipping_method">
+								<div class="checkout_shipping_method_head">SHIPPING METHOD</div>
+								<ul class="checkout_shipping_method_options">
+									<li class="checkout_shipping_method_options_var">
+										<div class="col-md-4"><div class="checkout_shipping_method_options_var_type">STANDART</div></div>
+										<div class="col-md-4"><div class="checkout_shipping_method_options_var_period">10 DAYS</div></div>
+										<div class="col-md-4"><div class="checkout_shipping_method_options_var_price">FREE</div></div>
+									</li>
+									<li class="checkout_shipping_method_options_var">
+										<div class="col-md-4"><div class="checkout_shipping_method_options_var_type">FAST</div></div>
+										<div class="col-md-4"><div class="checkout_shipping_method_options_var_period">2 DAYS</div></div>
+										<div class="col-md-4"><div class="checkout_shipping_method_options_var_price">$ 20</div></div>
+									</li>
+								</ul>
+							</div>
+							<div class="checkout_payment_method">
+								<div class="checkout_payment_method_head">PAYMENT METHOD</div>
+								<div class="checkout_payment_method_options">
+									<input type="radio" class="btn-check checkout_payment_method_options_input" name="options" id="option1" autocomplete="off">
+									<label class="btn checkout_payment_method_options_btn" for="option1">CREDIT CARD</label>
+
+									<input type="radio" class="btn-check checkout_payment_method_options_input" name="options" id="option2" autocomplete="off">
+									<label class="btn checkout_payment_method_options_btn" for="option2">PAYPAL</label>
+
+									<input type="radio" class="btn-check checkout_payment_method_options_input" name="options" id="option3" autocomplete="off">
+									<label class="btn checkout_payment_method_options_btn" for="option3">APPLE PAY</label>
+
+									<input type="radio" class="btn-check checkout_payment_method_options_input" name="options" id="option4" autocomplete="off">
+									<label class="btn checkout_payment_method_options_btn" for="option4">GOOGLE PAY</label>
+
+									<input type="radio" class="btn-check checkout_payment_method_options_input" name="options" id="option5" autocomplete="off">
+									<label class="btn checkout_payment_method_options_btn" for="option5">GUPON RECEIPT OF THE GOODS</label>																
+								</div>
+							</div>
+							<div class="checkout_submit">
+								<div class="col-md-8 offset-md-4">
+									<button type="submit" class="checkout_submit_btn">GO TO PAYMENT</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-6">
+					<div class="you_order_details">
+						<div class="you_order_details_head">
+							<div class="you_order_details_head_text">YOUR ORDER</div>
+							<div class="you_order_details_head_products">4 PRODUCTS</div>
+						</div>
+					
+						<ul class="you_order_details_items">							
+							<li class="row you_order_details_items_var_first">
+								<div class="col-md-4">
+									<div class="you_order_details_items_var_first_pic"></div>
+								</div>
+								<div class="col-md-4">
+									<div class="you_order_details_items_var_first_characteristics">
+										<div class="you_order_details_items_var_first_characteristics_type">BLOUSE</div>
+										<div class="you_order_details_items_var_first_characteristics_color">
+											<div class="you_order_details_items_var_first_characteristics_color_head">COLOR:</div>
+											<div class="you_order_details_items_var_first_characteristics_color_value">PINK</div>
+										</div>
+										<div class="you_order_details_items_var_first_characteristics_size">
+											<div class="you_order_details_items_var_first_characteristics_size_head">SIZE:</div>
+											<div class="you_order_details_items_var_first_characteristics_size_value">S</div>
+										</div>
+									</div>
+									<div class="you_order_details_items_var_first_price">
+										<div class="you_order_details_items_var_first_price_sum">$ 99</div>
+										<div class="you_order_details_items_var_first_price_amount">x 1</div>
+									</div>
+								</div>
+								<div class="col-md-2 offset-md-2">
+									<button class="you_order_details_items_var_first_remove_btn"></button>
+									<div class="you_order_details_items_var_first_amount_controls">
+										<button class="you_order_details_items_var_first_amount_controls_add_btn"></button>
+										<button class="you_order_details_items_var_first_amount_controls_minus_btn"></button>
+									</div>
+								</div>
+							</li>
+						
+							<li class="row you_order_details_items_var_second">
+								<div class="col-md-4">
+									<div class="you_order_details_items_var_second_pic"></div>
+								</div>
+								<div class="col-md-4">
+									<div class="you_order_details_items_var_second_characteristics">
+										<div class="you_order_details_items_var_second_characteristics_type">TRENCH COAT</div>
+										<div class="you_order_details_items_var_second_characteristics_color">
+											<div class="you_order_details_items_var_second_characteristics_color_head">COLOR:</div>
+											<div class="you_order_details_items_var_second_characteristics_color_value">BEIGE</div>
+										</div>
+										<div class="you_order_details_items_var_second_characteristics_size">
+											<div class="you_order_details_items_var_second_characteristics_size_head">SIZE:</div>
+											<div class="you_order_details_items_var_second_characteristics_size_value">M</div>
+										</div>
+									</div>
+									<div class="you_order_details_items_var_second_price">
+										<div class="you_order_details_items_var_second_price_sum"></div>
+										<div class="you_order_details_items_var_second_price_amount"></div>
+									</div>
+								</div>
+								<div class="col-md-2 offset-md-2">
+									<button class="you_order_details_items_var_second_remove_btn"></button>
+									<div class="you_order_details_items_var_second_amount_controls">
+										<button class="you_order_details_items_var_second_amount_controls_add_btn"></button>
+										<button class="you_order_details_items_var_second_amount_controls_minus_btn"></button>
+									</div>
+								</div>
+							</li>
+						</ul>
+					
+						<div class="you_order_details_summary">
+							<div class="you_order_details_summary_text">order summary</div>
+							<div class="you_order_details_summary_value">$ 190</div>
+						</div>
+						<div class="you_order_details_shipping">
+							<div class="you_order_details_shipping_text">shipping</div>
+							<div class="you_order_details_shipping_value">$ 20</div>
+						</div>
+						<div class="you_order_details_total">
+							<div class="you_order_details_total_text">total</div>
+							<div class="you_order_details_total_value">$ 210</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<script src="~/js/index.js"></script>
