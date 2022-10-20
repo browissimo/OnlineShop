@@ -18,8 +18,8 @@ namespace OnlineShop.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet]
-        public IActionResult Register() => View();
+        //[HttpGet]
+        //public IActionResult Register() => View();
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -39,8 +39,8 @@ namespace OnlineShop.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult Login() => View();
+        //[HttpGet]
+        //public IActionResult Login() => View();
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@*@model OnlineShop.Domain.ViewModels.Account.LoginViewModel*@
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     @*<meta charset="utf-8" />
@@ -49,6 +51,17 @@
                                         <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                                     </form>
 								</li>
+                                @*<li>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4">
+                                                <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
+                                            </div>
+                                            <div class="col-sm-4"></div>
+                                        </div>
+                                    </div>
+                                </li>*@
 								<li class="items_list_item">
 									<img src="~/icons/heart.svg" alt="favourite" class="items_list_item_img">
 									<a href="#" class="link"></a>
@@ -58,6 +71,19 @@
                                         <img src="~/icons/basket.svg" alt="basket" class="items_list_item_img">
                                     </a>
 								</li>
+                                <li class="items_list_item">
+                                   
+                                    <a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">
+                                        <img src="~/icons/loginRegister.svg" alt="login" class="items_list_item_img">
+                                    </a>
+                                   @* <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">
+                                        <img src="~/icons/loginRegister.svg" alt="login" class="items_list_item_img">
+                                    </a>*@
+                                    @*<a asp-controller="Account" asp-action="Test" class="link">
+                                        <img src="~/icons/loginRegister.svg" alt="login" class="items_list_item_img">
+                                    </a>*@
+
+                                </li>
 							</ul>
 						</div>
 					</div>                       
@@ -76,6 +102,64 @@
 			</div>
 		</nav>
 	</header>
+    <div class="container">
+        <div class="modal fade login" id="loginModal">
+            <div class="modal-dialog login animated">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="box">
+                            <div class="content">
+                                <div class="error"></div>
+                                <div class="form loginBox" id="LoginSubmit">
+                                    @*<form method="" action="" accept-charset="UTF-8">*@
+                                    <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+                                        @*<input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">*@
+                                        <input placeholder="Email" id="Email" class="form-control" type="text" name="Email">
+                                        @*<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">*@
+                                        <input id="Password" class="form-control" type="password" placeholder="Password" name="Password">
+                                        @*<a asp-controller="Account" asp-action="Login" class="btn btn-primary" type="button">Register</a>*@
+                                        @*<div>*@
+                                            @*<a asp-controller="Account" asp-action="Login" class="btn btn-primary" type="button">Register</a>*@
+                                            @*<a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-default btn-login" type="button">Register</a>*@
+                                            @*<a @Html.ActionLink("Login", "Login", "Account", new { onclick = "$('#LoginSubmit').submit();" }, null)></a>*@
+                                            @*<input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">*@
+                                        @*</div>*@
+                                        @*<input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">*@
+                                        <input class="btn btn-default btn-login" type="submit" value="Login" >
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="content registerBox" style="display:none;">
+                                <div class="form">
+                                    <form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
+                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                        <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
+                                        <input class="btn btn-default btn-register" type="button" value="Create account" name="commit">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="forgot login-footer">
+                            <span>
+                                Looking to
+                                <a href="javascript: showRegisterForm();">create an account</a>
+                                ?
+                            </span>
+                        </div>
+                        <div class="forgot register-footer" style="display:none">
+                            <span>Already have an account?</span>
+                            <a href="javascript: showLoginForm();">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
    @* <header>
@@ -238,8 +322,9 @@
     
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="js/LoginRegister.js"></script>
-    <script src="js/index.js"></script>
+    <script src="/js/LoginRegister.js"></script>
+    <script src="/js/index.js"></script>
+
     @await RenderSectionAsync("pageScripts", required: false)
 </body>
 </html>

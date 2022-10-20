@@ -33,7 +33,8 @@ namespace OnlineShop.DAL
                     Id = 1,
                     Name = "Browissimo",
                     Password = HashPasswordHelper.HashPassword("123456"),
-                    Role = Role.Admin
+                    Role = Role.Admin,
+                    Email = "Browissimo@mail.ru"
                 });
 
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();

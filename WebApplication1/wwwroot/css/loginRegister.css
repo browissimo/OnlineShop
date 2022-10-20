@@ -1,0 +1,81 @@
+﻿.login .modal-dialog {
+    width: 350px;
+}
+
+.login .modal-footer {
+    border-top: 0;
+    padding: 10px 20px 20px;
+}
+
+.login .forgot {
+    color: #797979;
+    margin-left: 0;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+}
+
+.login .btn-login, .registerBox .btn-register {
+    display: block;
+    margin: 0 auto;
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 0px;
+    border-width: 1px;
+    padding: 15px 50px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+    .login .btn-login:hover, .registerBox .btn-register:hover {
+        background-color: #FFFFFF;
+        color: #000000;
+        border: 1px solid #000000
+    }
+
+.login .form-control {
+    background-color: rgba(0, 0, 0, 0.09);
+    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;
+    border-radius: 0px;
+}
+
+    .login .form-control:focus {
+        box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;
+        color: #FFFFFF;
+    }
+
+.login .box .form input[type="text"], .login .box .form input[type="password"] {
+    border: none;
+    color: #333333;
+    font-size: 16px;
+    height: 46px;
+    margin-bottom: 5px;
+    padding: 13px 12px;
+    width: 100%;
+}
+
+
+@media (max-width:400px) {
+    .login .modal-dialog {
+        width: 100%;
+    }
+}
+
+.big-login, .big-register {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 0px;
+    border-width: 1px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 200;
+    padding: 16px 60px;
+    text-transform: uppercase;
+    transition: all 0.4s ease 0s;
+}
+
+    .big-login:hover {
+        background-color: #FFFFFF;
+        color: #000000;
+        border: 1px solid #000000
+    }
