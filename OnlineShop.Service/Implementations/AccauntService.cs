@@ -34,7 +34,7 @@ namespace OnlineShop.Service.Implementations
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name);
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == model.Email);
                 if (user != null)
                 {
                     return new BaseResponse<ClaimsIdentity>()
@@ -45,17 +45,22 @@ namespace OnlineShop.Service.Implementations
 
                 user = new User()
                 {
-                    Name = model.Name,
+                    Name = model.Email.Split('@').First(),
+                    Email = model.Email,
                     Role = Role.User,
                     Password = HashPasswordHelper.HashPassword(model.Password),
                 };
 
                 var profile = new Profile()
                 {
-                    UserId = user.Id,
+                    UserId = user.Id
                 };
 
                 await _userRepository.Create(user);
+
+                var createdUser = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == model.Email);
+                profile.UserId = createdUser.Id;
+
                 await _proFileRepository.Create(profile);
                 var result = Authenticate(user);
 
