@@ -4,7 +4,7 @@ namespace OnlineShop.Domain.ViewModels.Account
 {
     public class ChangePasswordViewModel
     {
-        public string UserName { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Input password")]
         [DataType(DataType.Password)]

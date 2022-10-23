@@ -125,7 +125,7 @@ namespace OnlineShop.Service.Implementations
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.UserName);
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Email == model.Email);
                 if (user == null)
                 {
                     return new BaseResponse<bool>()

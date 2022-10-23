@@ -13,6 +13,7 @@ namespace OnlineShop.Service.Interfaces
     {
         Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel model);
         Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model);
+        Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model);
 
     }
 }
