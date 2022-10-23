@@ -135,7 +135,7 @@ namespace OnlineShop.Service.Implementations
                     };
                 }
 
-                user.Password = HashPasswordHelper.HashPassword(model.NwePassword);
+                user.Password = HashPasswordHelper.HashPassword(model.NewPassword);
                 await _userRepository.Update(user);
 
                 return new BaseResponse<bool>()

@@ -51,17 +51,6 @@
                                         <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                                     </form>
 								</li>
-                                @*<li>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-4"></div>
-                                            <div class="col-sm-4">
-                                                <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
-                                            </div>
-                                            <div class="col-sm-4"></div>
-                                        </div>
-                                    </div>
-                                </li>*@
 								<li class="items_list_item">
 									<img src="~/icons/heart.svg" alt="favourite" class="items_list_item_img">
 									<a href="#" class="link"></a>
@@ -72,17 +61,17 @@
                                     </a>
 								</li>
                                 <li class="items_list_item">
-                                   
                                     <a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">
-                                        <img src="~/icons/loginRegister.svg" alt="login" class="items_list_item_img">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <img src="~/icons/logined.svg" alt="login" class="items_list_item_img">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/icons/loginRegister.svg" alt="login" class="items_list_item_img">
+                                        }
+                                        
                                     </a>
-                                   @* <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">
-                                        <img src="~/icons/loginRegister.svg" alt="login" class="items_list_item_img">
-                                    </a>*@
-                                    @*<a asp-controller="Account" asp-action="Test" class="link">
-                                        <img src="~/icons/loginRegister.svg" alt="login" class="items_list_item_img">
-                                    </a>*@
-
                                 </li>
 							</ul>
 						</div>
@@ -111,20 +100,9 @@
                             <div class="content">
                                 <div class="error"></div>
                                 <div class="form loginBox" id="LoginSubmit">
-                                    @*<form method="" action="" accept-charset="UTF-8">*@
                                     <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
-                                        @*<input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">*@
                                         <input placeholder="Email" id="Email" class="form-control" type="text" name="Email">
-                                        @*<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">*@
                                         <input id="Password" class="form-control" type="password" placeholder="Password" name="Password">
-                                        @*<a asp-controller="Account" asp-action="Login" class="btn btn-primary" type="button">Register</a>*@
-                                        @*<div>*@
-                                            @*<a asp-controller="Account" asp-action="Login" class="btn btn-primary" type="button">Register</a>*@
-                                            @*<a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-default btn-login" type="button">Register</a>*@
-                                            @*<a @Html.ActionLink("Login", "Login", "Account", new { onclick = "$('#LoginSubmit').submit();" }, null)></a>*@
-                                            @*<input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">*@
-                                        @*</div>*@
-                                        @*<input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">*@
                                         <input class="btn btn-default btn-login" type="submit" value="Login" >
                                     </form>
                                 </div>
@@ -145,11 +123,17 @@
                     </div>
                     <div class="modal-footer">
                         <div class="forgot login-footer">
-                            <span>
+                            <div>
                                 Looking to
                                 <a href="javascript: showRegisterForm();">create an account</a>
                                 ?
-                            </span>
+                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div>
+                                    <a asp-controller="Account" asp-action="Logout">Log out</a>
+                                </div>
+                            }
                         </div>
                         <div class="forgot register-footer" style="display:none">
                             <span>Already have an account?</span>
