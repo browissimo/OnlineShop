@@ -48,89 +48,6 @@ namespace OnlineShop.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<ItemViewModel>> GetItem(int id)
-        {
-            try
-            {
-                var item = await _itemRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
-                var ItemColors = await _itemColorRepository.GetAll().FirstOrDefaultAsync(x => x.ItemID == id);
-                if (item == null)
-                {
-                    return new BaseResponse<ItemViewModel>()
-                    {
-                        Description = "Item not found",
-                        StatusCode = StatusCode.ItemNotFound
-                    };
-                }
-
-                var data = new ItemViewModel()
-                {
-                    Id = item.Id,
-                    //ReleaseDate = item.ReleaseDate.ToLongDateString(),
-                    //Description = item.Description,
-                    Name = item.Name,
-                    Price = item.Price,
-                    //Material = item.Material,
-                    //Collection = item.Collection.ToString(),
-                    Avatar = item.Avatar,
-                    Colors = item.Colors,
-                    VendorCode = item.VendorCode,
-                    Sizes = item.Sizes,
-                    ColorImages = ItemColors.ColorImages,
-                    ModelCharacteristics = ItemColors.ModelCharacteristics,
-                    ModelSize = ItemColors.Size.Value
-                };
-
-                return new BaseResponse<ItemViewModel>()
-                {
-                    StatusCode = StatusCode.Ok,
-                    Data = data
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<ItemViewModel>()
-                {
-                    Description = $"[GetItem] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<IBaseResponse<List<ItemViewModel>>> GetItemsByType(string type)
-        {
-            var baseResponse = new BaseResponse<List<ItemViewModel>>();
-            try
-            {
-                var items =  _itemRepository.GetAll()
-                    .Select(item => new ItemViewModel()
-                    {
-                        Id = item.Id,
-                        //ReleaseDate = item.ReleaseDate.ToLongDateString(),
-                        //Description = item.Description,
-                        Name = item.Name,
-                        //Price = item.Price,
-                        //Material = item.Material,
-                        //Collection = item.Collection.ToString(),
-                        //Colors = item.Colors.ToList(),
-                        ItemType = item.ItemType.GetDisplayName(),
-                        Avatar = item.Avatar,
-                        //VendorCode = item.VendorCode
-                    })
-                   .ToList().Where(x=>x.ItemType.Equals(type)).ToList();
-
-                baseResponse.Data = items;
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<List<ItemViewModel>>()
-                {
-                    Description = ex.Message,
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
 
         public async Task<IBaseResponse<Item>> Create(ItemViewModel model)
         {
@@ -242,6 +159,51 @@ namespace OnlineShop.Service.Implementations
             }
         }
 
+        public async Task<IBaseResponse<ItemViewModel>> GetItem(int id)
+        {
+            try
+            {
+                var item = await _itemRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                var ItemColors = await _itemColorRepository.GetAll().FirstOrDefaultAsync(x => x.ItemID == id);
+                if (item == null)
+                {
+                    return new BaseResponse<ItemViewModel>()
+                    {
+                        Description = "Item not found",
+                        StatusCode = StatusCode.ItemNotFound
+                    };
+                }
+
+                var data = new ItemViewModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Price = item.Price,
+                    Avatar = item.Avatar,
+                    Colors = item.Colors,
+                    VendorCode = item.VendorCode,
+                    Sizes = item.Sizes,
+                    ColorImages = ItemColors.ColorImages,
+                    ModelCharacteristics = ItemColors.ModelCharacteristics,
+                    ModelSize = ItemColors.Size.Value
+                };
+
+                return new BaseResponse<ItemViewModel>()
+                {
+                    StatusCode = StatusCode.Ok,
+                    Data = data
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ItemViewModel>()
+                {
+                    Description = $"[GetItem] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
         public IBaseResponse<List<ItemViewModel>> GetItems()
         {
             try
@@ -250,16 +212,9 @@ namespace OnlineShop.Service.Implementations
                     .Select(item => new ItemViewModel()
                     {
                         Id = item.Id,
-                        //ReleaseDate = item.ReleaseDate.ToLongDateString(),
-                        //Description = item.Description,
                         Name = item.Name,
-                        //Price = item.Price,
-                        //Material = item.Material,
-                        //Collection = item.Collection.ToString(),
-                        //Colors = item.Colors.ToList(),
                         ItemType = item.ItemType.GetDisplayName(),
-                        Avatar = item.Avatar,
-                        //VendorCode = item.VendorCode
+                        Avatar = item.Avatar
                     }).ToList();
 
                 if (!items.Any())
@@ -282,6 +237,87 @@ namespace OnlineShop.Service.Implementations
                 return new BaseResponse<List<ItemViewModel>>()
                 {
                     Description = $"[GetItems] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<ItemViewModel>>> GetItemsByType(string type)
+        {
+            var baseResponse = new BaseResponse<List<ItemViewModel>>();
+            try
+            {
+                var items = _itemRepository.GetAll()
+                    .Select(item => new ItemViewModel()
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        ItemType = item.ItemType.GetDisplayName(),
+                        Avatar = item.Avatar,
+                        Price = item.Price
+                        
+                    })
+                   .ToList().Where(x => x.ItemType.Equals(type)).ToList();
+
+                baseResponse.Data = items;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<ItemViewModel>>()
+                {
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<ItemViewModel>>> Search(string searchString)
+        {
+            try
+            {
+                List<ItemViewModel> sortedItems = new();
+
+                var items =  _itemRepository.GetAll()
+                    .Select(item => new ItemViewModel()
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        ItemType = item.ItemType.GetDisplayName(),
+                        Avatar = item.Avatar,
+                        Price = item.Price
+                    })
+                    .ToList();
+
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    sortedItems = items.Where(item => item.Name.ToLower().Contains(searchString.ToLower())).ToList();
+                }
+
+                if (!sortedItems.Any())
+                {
+                    return new BaseResponse<List<ItemViewModel>>()
+                    {
+                        Data = items,
+                        Description = "Найдено 0 элементов",
+                        StatusCode = StatusCode.Ok
+                    };
+                }
+
+                return new BaseResponse<List<ItemViewModel>>()
+                {
+                    Data = sortedItems,
+                    StatusCode = StatusCode.Ok
+                };
+
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResponse<List<ItemViewModel>>()
+                {
+                    Description = $"[SearchItems] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

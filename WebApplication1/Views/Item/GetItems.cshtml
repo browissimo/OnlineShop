@@ -14,9 +14,9 @@
 	<section class="caterogy">
 		<div class="container">
 			<div class="category_divider"></div>
-			@if (ViewBag.Type == "All")
+			@if (ViewBag.Type != null)
 			{
-				<div class="category_name">ALL</div>
+				<div class="category_name">@ViewBag.Type.ToString()</div>
 			}
 			else
 			{
@@ -294,8 +294,7 @@
 		</div>
 	</section>
 	
-	<script src="~/js/index.js"></script>
-
+<script src="~/js/index.js"></script>
 
 @*<style>
     .card-buttons-group {

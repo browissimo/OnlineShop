@@ -51,6 +51,24 @@ namespace OnlineShop.Controllers
             return View("GetItems", response.Data);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Search(string searchStirng)
+        {
+            var response = await _itemService.Search(searchStirng);
+
+            if (response.Description == "Найдено 0 элементов")
+            {
+                ViewBag.Type = "Products not found, but check out what we have";
+            }
+
+            if (response.StatusCode == Domain.Enum.StatusCode.Ok)
+            {
+                return View("GetItems", response.Data);
+            }
+            return View("Error", $"{response.Description}");           
+        }
+
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {

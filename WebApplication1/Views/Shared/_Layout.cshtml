@@ -47,8 +47,8 @@
 						<div class="items">
 							<ul class="items_list">
 								<li class="items_list_item">
-                                    <form class="items_list_item_search">
-                                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                                    <form asp-action="Search" asp-controller="Item" method="post" class="items_list_item_search">
+                                        <input id="searchStirng" name="searchStirng" type="search" class="form-control" placeholder="Search..." aria-label="Search">
                                     </form>
 								</li>
 								<li class="items_list_item">

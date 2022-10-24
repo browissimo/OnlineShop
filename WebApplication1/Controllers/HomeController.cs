@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OnlineShop.Models;
 using OnlineShop.Domain.Entity;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Domain.ViewModels.Item;
 
 namespace OnlineShop.Controllers
 {
@@ -30,5 +31,6 @@ namespace OnlineShop.Controllers
             }
             return View("Error", $"{response.Description}");
         }
+
     }
 }
