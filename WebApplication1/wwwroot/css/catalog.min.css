@@ -10,9 +10,8 @@
     font-family: "Arial";
     font-style: normal;
     font-weight: 700;
-    /*font-size: 139px;
-    font-size: calc(50px + 2vw);*/
-    font-size: 2vw
+    font-size: 139px
+
 }
 
 .category_name_visible_false {

@@ -62,11 +62,7 @@
 			<div class="col-md-5 item_pic">
 				@foreach(var image in Model.ColorImages)
 				{
-					@*<form asp-action="GetItem" >
-
-					</form>*@
-
-					@*<div class="item_pic_var" style="background: url(/img/cards/ItemImages/@image.Url) left center/cover no-repeat"></div>*@
+					<div class="item_pic_var" style="background: url(/img/cards/ItemImages/@image.Url) left center/cover no-repeat"></div>
 				}
 			</div>
 			<div class="col-md-3 item_characteristics">
@@ -74,11 +70,17 @@
 					<div class="item_characteristics_colors_desc">colors</div>
 						
 					<ul class="item_characteristics_colors_options">
-						@foreach (var color in @Model.Colors)
+						@*@foreach (var color in @Model.Colors)
 						{
 						<li class="item_characteristics_colors_options_var">
-							<button class="item_characteristics_colors_options_var_btn" style="background-color: rgb(@color.RGB)"></button>
+							<button class="item_characteristics_colors_options_var_btn" style="background-color: rgb(@color.RGB)" ></button>
 						</li>
+						}*@
+						@foreach (var color in @Model.Colors)
+						{
+							<li class="item_characteristics_colors_options_var">
+								<button asp-action="GetItem" asp-controller="Item" class="item_characteristics_colors_options_var_btn" style="background-color: rgb(@color.RGB)"></button>
+							</li>
 						}
 					</ul>
 				</div>
