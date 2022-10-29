@@ -8,6 +8,7 @@ using OnlineShop.Domain.ViewModels.Item;
 using OnlineShop.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -165,6 +166,51 @@ namespace OnlineShop.Service.Implementations
             {
                 var item = await _itemRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 var ItemColors = await _itemColorRepository.GetAll().FirstOrDefaultAsync(x => x.ItemID == id);
+                if (item == null)
+                {
+                    return new BaseResponse<ItemViewModel>()
+                    {
+                        Description = "Item not found",
+                        StatusCode = StatusCode.ItemNotFound
+                    };
+                }
+
+                var data = new ItemViewModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Price = item.Price,
+                    Avatar = item.Avatar,
+                    Colors = item.Colors,
+                    VendorCode = item.VendorCode,
+                    Sizes = item.Sizes,
+                    ColorImages = ItemColors.ColorImages,
+                    ModelCharacteristics = ItemColors.ModelCharacteristics,
+                    ModelSize = ItemColors.Size.Value
+                };
+
+                return new BaseResponse<ItemViewModel>()
+                {
+                    StatusCode = StatusCode.Ok,
+                    Data = data
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ItemViewModel>()
+                {
+                    Description = $"[GetItem] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<ItemViewModel>> ChangeColor(int id, int colorId)
+        {
+            try
+            {
+                var item = await _itemRepository.GetAll().FirstOrDefaultAsync(item => item.Id == id);
+                var ItemColors = await _itemColorRepository.GetAll().FirstOrDefaultAsync(x => x.id == colorId);
                 if (item == null)
                 {
                     return new BaseResponse<ItemViewModel>()

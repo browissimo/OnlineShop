@@ -33,13 +33,15 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetItem(int id, bool isJson)
+        public async Task<IActionResult> GetItem(int id)
         {
             var response = await _itemService.GetItem(id);
-            //if (isJson)
-            //{
-            //    return Json(response.Data);
-            //}
+            return PartialView("GetItem", response.Data);
+        }
+
+        public async Task<IActionResult> ChangeColor(int id, int colorId)
+        {
+            var response = await _itemService.ChangeColor(id, colorId);
             return PartialView("GetItem", response.Data);
         }
 
@@ -47,7 +49,6 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> GetItemsByType(string type)//, int page = 1, int pageSize = 5)
         {
             var response = await _itemService.GetItemsByType(type);
-            //return Json(response.Data);
             return View("GetItems", response.Data);
         }
 

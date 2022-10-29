@@ -66,13 +66,14 @@
 }
 
 .collection_divider {
-    width: 1414px;
+    /*width: 1414px;*/
     height: 2px;
     background-color: #000;
     margin: 0 auto;
     -webkit-transform: translateY(-60px);
     transform: translateY(-60px)
 }
+
 
 .collection .new_collections {
     position: relative;
@@ -141,7 +142,7 @@
 }
 
 .trend_divider {
-    width: 1414px;
+    /*width: 1414px;*/
     height: 2px;
     background-color: #000;
     margin: 0 auto;

@@ -68,18 +68,14 @@
 			<div class="col-md-3 item_characteristics">
 				<div class="item_characteristics_colors">
 					<div class="item_characteristics_colors_desc">colors</div>
-						
 					<ul class="item_characteristics_colors_options">
-						@*@foreach (var color in @Model.Colors)
-						{
-						<li class="item_characteristics_colors_options_var">
-							<button class="item_characteristics_colors_options_var_btn" style="background-color: rgb(@color.RGB)" ></button>
-						</li>
-						}*@
-						@foreach (var color in @Model.Colors)
+						@for (int i = 0; i < @Model.Colors.Count; i++)
 						{
 							<li class="item_characteristics_colors_options_var">
-								<button asp-action="GetItem" asp-controller="Item" class="item_characteristics_colors_options_var_btn" style="background-color: rgb(@color.RGB)"></button>
+								<div class="item_characteristics_colors_options_var_div" style="background-color: rgb(@Model.Colors[i].RGB)">
+									<a class="item_characteristics_colors_options_var_div_a" asp-action="ChangeColor" asp-controller="Item" asp-route-id="@Model.Id" asp-route-colorId="@Model.Colors[i].itemColors.FirstOrDefault().id"></a>
+								</div>
+								
 							</li>
 						}
 					</ul>
