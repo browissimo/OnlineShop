@@ -64,6 +64,7 @@ nav {
     nav .items_list_item {
         margin-left: 10px;
         margin-right: 10px;
+        cursor: pointer
     }
 
 .main_menu_div {

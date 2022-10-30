@@ -1,6 +1,7 @@
 ﻿using OnlineShop.Domain.Entity;
 using OnlineShop.Domain.Response;
 using OnlineShop.Domain.ViewModels.Item;
+using OnlineShop.Domain.ViewModels.Page;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace OnlineShop.Service.Interfaces
     {
         BaseResponse<Dictionary<int, string>> GetTypes();
         IBaseResponse<List<ItemViewModel>> GetItems();
+        IBaseResponse<ItemPagesViewModel> GetItems(int page);
         Task<IBaseResponse<ItemViewModel>> GetItem(int id);
         Task<IBaseResponse<List<ItemViewModel>>> GetItemsByType(string type);
         Task<IBaseResponse<List<ItemViewModel>>> Search(string searchString);

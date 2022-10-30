@@ -5,6 +5,7 @@ using OnlineShop.Domain.Enum;
 using OnlineShop.Domain.Extensions;
 using OnlineShop.Domain.Response;
 using OnlineShop.Domain.ViewModels.Item;
+using OnlineShop.Domain.ViewModels.Page;
 using OnlineShop.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -281,6 +282,59 @@ namespace OnlineShop.Service.Implementations
             catch (Exception ex)
             {
                 return new BaseResponse<List<ItemViewModel>>()
+                {
+                    Description = $"[GetItems] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public IBaseResponse<ItemPagesViewModel> GetItems(int page)
+        {
+            int pageSize = 10;
+
+            try
+            {
+                var items = _itemRepository.GetAll()
+                    .Select(item => new ItemViewModel()
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        ItemType = item.ItemType.GetDisplayName(),
+                        Price = item.Price,
+                        VendorCode = item.VendorCode
+           
+                    }).ToList();
+
+                if (!items.Any())
+                {
+                    return new BaseResponse<ItemPagesViewModel>()
+                    {
+                        Description = "Найдено 0 элементов",
+                        StatusCode = StatusCode.Ok
+                    };
+                }
+
+
+                var count = items.Count();
+                items = items.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+                ItemPagesViewModel userPagesViewModel = new ItemPagesViewModel
+                {
+                    PageViewModel = pageViewModel,
+                    Items = items
+                };
+
+                return new BaseResponse<ItemPagesViewModel>()
+                {
+                    Data = userPagesViewModel,
+                    StatusCode = StatusCode.Ok
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ItemPagesViewModel>()
                 {
                     Description = $"[GetItems] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError

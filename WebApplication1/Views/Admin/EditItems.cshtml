@@ -1,0 +1,188 @@
+﻿@model OnlineShop.Domain.ViewModels.Page.ItemPagesViewModel
+
+@{
+    ViewData["Title"] = "EditItems";
+}
+
+<head>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="~/css/AdminViews.css">
+</head>
+
+  <body>
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+						<h2>Manage <b>Users</b></h2>
+					</div>
+					<div class="col-sm-6">
+						<a href="#addItemModal" class="btn" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add new item</span></a>
+						<a href="#deleteItemModal" class="btn" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+					</div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+						<th>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+						</th>
+                        <th>Id</th>
+                        <th>Name</th>
+						<th>Price</th>
+                        <th>Item Type</th>
+						<th>VendorCode</th>
+                    </tr>
+                </thead>
+                <tbody>
+					@for (int i = 0; i < Model.Items.Count(); i++)
+					{
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="@String.Concat("checkbox", (i+1).ToString())" name="options[]" value="1">
+									<label for="@String.Concat("checkbox", (i+1).ToString())"></label>
+								</span>
+							</td>
+							<td>@Model.Items[i].Id</td>
+							<td>@Model.Items[i].Name</td>
+							<td>@Model.Items[i].Price</td>
+							<td>@Model.Items[i].ItemType</td>
+							<td>@Model.Items[i].VendorCode</td>
+							<td>
+								<a href="#editItemModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+								<a href="#deleteItemModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							</td>
+						</tr>
+					}
+                </tbody>
+            </table>
+			<div class="clearfix">
+                <div class="hint-text">Showing <b>@Model.PageViewModel.PageNumber</b> out of <b>@Model.PageViewModel.TotalPages</b> entries</div>
+				<ul class="pagination">
+					<li class="page-item disabled"><a a asp-controller="Admin" asp-action="EditItems" asp-route-page="@(Model.PageViewModel.HasPreviousPage ? Model.PageViewModel.PageNumber - 1 : Model.PageViewModel.PageNumber)">Previous</a></li>
+					@for (int i = 1; i <= Model.PageViewModel.TotalPages && i <= 5; i++)
+					{
+						<li class="page-item"><a asp-controller="Admin" asp-action="EditItems" asp-route-page="@i.ToString()" class="page-link">@i.ToString()</a></li>
+					}
+					<li class="page-item"><a asp-controller="Admin" asp-action="EditItems" asp-route-page="@(Model.PageViewModel.HasNextPage ? Model.PageViewModel.PageNumber + 1 : Model.PageViewModel.PageNumber)" class="page-link">Next</a></li>
+				</ul>
+            </div>
+        </div>
+    </div>
+	<!-- Add Modal HTML -->
+	<div id="addItemModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Add item</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<textarea class="form-control" required></textarea>
+						</div>
+						<div class="form-group">
+							<label>Phone</label>
+							<input type="text" class="form-control" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-default" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Modal HTML -->
+	<div id="editItemModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Edit item</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Description</label>
+							<textarea class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<label>Material</label>
+							<input type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Price</label>
+							<input type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							@*<label>Item Type</label>*@
+							@Html.DropDownList("Item Type", Html.GetEnumSelectList(typeof(OnlineShop.Domain.Enum.ItemTypes)))
+@*							<input type="radio" class="form-control" required>*@
+						</div>
+						<div class="form-group">
+							<label>Vendor Code</label>
+							<input type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Avatar</label>
+							<input type="file" class="form-control" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-default" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Modal HTML -->
+	<div id="deleteItemModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete item</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/js/AdminViews.js"></script>
+
+</body>

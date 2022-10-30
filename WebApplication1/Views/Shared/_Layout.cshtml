@@ -39,15 +39,15 @@
 
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <div class="dropdown">
+                                    <li class="dropdown items_list_item">
                                         <a class="nav-link  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Admin
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" asp-controller="Item" asp-action="Save">Items</a>
-                                            <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Users</a>
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="EditItems">Items</a>
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="EditUsers">Users</a>
                                         </div>
-                                    </div>
+                                    </li>
                                 }
 								<li class="items_list_item">
                                     <form asp-action="Search" asp-controller="Item" method="post" class="items_list_item_search">
@@ -150,11 +150,7 @@
             </div>
         </div>
     </div>
-
-
-                    
-
-
+     
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

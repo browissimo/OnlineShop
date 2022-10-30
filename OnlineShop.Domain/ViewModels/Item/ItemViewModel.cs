@@ -15,15 +15,12 @@ namespace OnlineShop.Domain.ViewModels.Item
         //[MaxLength(20, ErrorMessage = "Name should be equal 20 or less than 20")]
         //[MinLength(5, ErrorMessage = "Name should be 5 or more than 5")]
         public string Name { get; set; }
-
         public string Description { get; set; }
         public string Material { get; set; }
-
         [Required(ErrorMessage = "Input price")]
         public double Price { get; set; }
         public List<Color> Colors { get; set; }
         public List<ColorImage> ColorImages { get; set; }
-
         public List<Size> Sizes { get; set; }
         public string ModelCharacteristics { get; set;}
         public int ModelSize { get; set; }
