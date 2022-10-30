@@ -3,16 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @*<meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - VSHHJ</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/backImage.css"/>
-    <link rel="stylesheet" href="~/css/menu.css"/>
-    <link rel="stylesheet" href="~/css/paragraph.css"/>
-    <link rel="stylesheet" href="~/css/card.css"/>
-    <link rel="stylesheet" href="~/css/label.css"/>*@
     <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,15 +36,31 @@
 					<div class="col-md-4 offset-md-1">
 						<div class="items">
 							<ul class="items_list">
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div class="dropdown">
+                                        <a class="nav-link  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Admin
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" asp-controller="Item" asp-action="Save">Items</a>
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Users</a>
+                                        </div>
+                                    </div>
+                                }
 								<li class="items_list_item">
                                     <form asp-action="Search" asp-controller="Item" method="post" class="items_list_item_search">
                                         <input id="searchStirng" name="searchStirng" type="search" class="form-control" placeholder="Search..." aria-label="Search">
                                     </form>
 								</li>
-								<li class="items_list_item">
-									<img src="~/icons/heart.svg" alt="favourite" class="items_list_item_img">
-									<a href="#" class="link"></a>
-								</li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="items_list_item">
+                                        <img src="~/icons/heart.svg" alt="favourite" class="items_list_item_img">
+                                        <a href="#" class="link"></a>
+                                    </li>
+                                }
 								<li class="items_list_item">
                                     <a asp-controller="Cart" asp-action="GetCart" class="link">
                                         <img src="~/icons/basket.svg" alt="basket" class="items_list_item_img">
@@ -146,106 +152,7 @@
     </div>
 
 
-   @* <header>
-        <nav class="navbar navbar-expand-lg" style="background-color: white;">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color:black; font-family:Impact; font-size:30px; background-color:white; border-radius:10px;">VSJJK</span><img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;"></a>
-            <button class="navbar-toggler badge-light" style="border-radius:10px;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
-                </svg>
-            </button>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family:'Comic Sans MS'; font-weight: bold;">
-                                Аккаунт
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="nav flex-column paragraphHome">
-                                                <li class="nav-item text-center">
-                                                    <a class="nav-link active text-white" asp-controller="Account" asp-action="Register">
-                                                        Регистрация
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active text-white" asp-controller="Account" asp-action="Login">
-                                                        Вход
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>    
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Comic Sans MS'; font-weight: bold;">
-                                Items
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="nav flex-column paragraphHome">
-                                                <li class="nav-item text-center">
-                                                    <a class="nav-link active text-white" asp-controller="Item" asp-action="GetItems">
-                                                        List
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>   
-                    }
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Comic Sans MS'; font-weight: bold;">
-                                Admin
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="nav flex-column paragraphHome">
-                                                <li class="nav-item text-center">
-                                                    <a class="nav-link active text-white" asp-controller="Iten" asp-action="Save">
-                                                        Add
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item text-center">
-                                                    <a class="nav-link active text-white" asp-controller="Admin" asp-action="Index">
-                                                        Users
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>   
-                    }
-                </ul>
-
-                @if (User.Identity.IsAuthenticated)
-                {
-                     <form method="post" asp-controller="Account" asp-action="Logout">
-                        <input class="btn btn-danger rounded" style="font-family:'Comic Sans MS'; font-weight: bold; font-size:20px;" type="submit" value="Выход" />
-                    </form>
-                }
-            </div>
-        </nav>
-    </header>*@
+                    
 
 
     <div class="container">
@@ -300,12 +207,10 @@
 			</div>
 		</footer>
 	</div>
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>*@
     
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/LoginRegister.js"></script>
     <script src="/js/index.js"></script>
 
