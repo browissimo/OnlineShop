@@ -102,7 +102,7 @@ namespace OnlineShop.Service.Implementations
                     };
                 }
 
-                /*await _carRepository.Delete(car);*/
+                await _itemRepository.Delete(item);
 
                 return new BaseResponse<bool>()
                 {
