@@ -83,19 +83,6 @@ namespace OnlineShop.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
-        //public async void Delete(int id)
-        //{
-        //    var response = await _itemService.Delete(id);
-        //    //{
-        //    //    if (response.StatusCode == Domain.Enum.StatusCode.Ok)
-        //    //    {
-        //    //        return RedirectToAction("GetItems");
-        //    //    }
-        //    //    return RedirectToAction("Error");
-        //    //}
-        //}
-
         public IActionResult Compare() => PartialView();
 
         [HttpGet]

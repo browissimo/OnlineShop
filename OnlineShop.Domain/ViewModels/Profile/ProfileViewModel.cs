@@ -19,9 +19,7 @@ namespace OnlineShop.Domain.ViewModels.Profile
         [MinLength(5, ErrorMessage = "Address should be more than 5")]
         [MaxLength(200, ErrorMessage = "Address should me less than 200")]
         public string Address { get; set; }
-
         public string UserName { get; set; }
-
         public string NewPassword { get; set; }
     }
 }

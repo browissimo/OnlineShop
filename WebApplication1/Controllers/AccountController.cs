@@ -20,9 +20,6 @@ namespace OnlineShop.Controllers
             _accountService = accountService;
         }
 
-        //[HttpGet]
-        //public IActionResult Register() => View();
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -40,9 +37,6 @@ namespace OnlineShop.Controllers
             }
             return View(model);
         }
-
-        //[HttpGet]
-        //public IActionResult Login() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -63,7 +57,6 @@ namespace OnlineShop.Controllers
             return View(model);
         }
 
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

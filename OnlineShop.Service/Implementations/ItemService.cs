@@ -149,7 +149,6 @@ namespace OnlineShop.Service.Implementations
                     Data = item,
                     StatusCode = StatusCode.Ok,
                 };
-                // TypeCar
             }
             catch (Exception ex)
             {

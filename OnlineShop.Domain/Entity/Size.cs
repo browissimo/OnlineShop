@@ -10,9 +10,7 @@ namespace OnlineShop.Domain.Entity
 	{
 		public int Id { get; set; }
 		public int Value { get; set; } = 0;
-
 		public List<Item> items { get; set; } = new ();
-
 		public List<ItemColor> itemColorsSizes { get; set; } = new();
 	}
 }
