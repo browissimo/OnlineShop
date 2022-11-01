@@ -20,6 +20,7 @@ namespace OnlineShop.Domain.Entity
         public List<Size> Sizes { get; set; } = new();
         public ItemTypes ItemType { get; set; }
         public Collections Collection { get; set; }
+        public int LikesCount { get; set; }
         public string VendorCode { get; set; }
         public string Avatar { get; set; }
     }

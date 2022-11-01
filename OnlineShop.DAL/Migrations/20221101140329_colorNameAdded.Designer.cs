@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.DAL;
 
@@ -11,9 +12,10 @@ using OnlineShop.DAL;
 namespace OnlineShop.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221101140329_colorNameAdded")]
+    partial class colorNameAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,9 +100,6 @@ namespace OnlineShop.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ItemType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Material")
